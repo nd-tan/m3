@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\checkmailController;
+use App\Http\Controllers\coculatecontroller;
+use App\Http\Controllers\logincontroller;
+use App\Http\Controllers\transaltecontroller;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +17,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('coculate');
+// });
+Route::post('index',[coculatecontroller::class,'index'])->name("index");
+Route::post('coculate',[coculatecontroller::class,'coculate'])->name("coculate");
+
+Route::get('translate/index',[transaltecontroller::class,'index'])->name("translate.index");
+Route::post('translate/dich',[transaltecontroller::class,'dich'])->name("dich");
+
+Route::get('login/index',[logincontroller::class,'index'])->name("login.index");
+Route::post('login/check',[logincontroller::class,'check'])->name("check");
+
+Route::get("email",[checkmailController::class,'index'])->name("email");
+Route::post("email/check",[checkmailController::class,'check'])->name("check.email");
+

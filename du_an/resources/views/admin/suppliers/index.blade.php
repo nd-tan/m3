@@ -1,0 +1,53 @@
+@extends('admin.index')
+@section('content')
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Nhà Cung Cấp</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{route('index')}}">Trang chủ</a></li>
+          <li class="breadcrumb-item">Nhà cung cấp</a></li>
+        </ol>
+      </nav>
+    </div>
+    <a class='btn btn' style='color:rgb(52,136,245)' href="{{route('supplier.add')}}">Thêm nhà cung cấp</a>
+    <table class="table table-bordered border-primary" style=" text-align: center; width:100%">
+        <thead>
+          <tr>
+            <th width='5%'>STT</th>
+            <th width='10%'>Tên Nhà Cung Cấp</th>
+            <th width='10%'>Địa Chỉ</th>
+            <th width='10%'>Số Điện Thoại</th>
+            <th width='10%'>Email</th>
+            <th width='10%'>Tùy Chọn</th>
+
+          </tr>
+        </thead>
+        <tbody>
+            @foreach ($items as $key=> $item)
+          <tr>
+            <th scope="row">{{++$key}}</th>
+            <td>{{$item->name}}</td>
+            <td>{{$item->address}}</td>
+            <td>{{$item->phone}}</td>
+            <td>{{$item->email}}</td>
+            <td>
+
+                <form action="{{route('supplier.delete',$item->id)}}" method="post" >
+                    @method('DELETE')
+                    @csrf
+                    {{-- <a style='color:rgb(52,136,245)' class='btn' href="#"><i class='bi bi-eye h4'></i></a> --}}
+                    <a style='color:rgb(52,136,245)' class='btn' href="{{route('supplier.edit',$item->id)}}"><i class='bi bi-arrow-clockwise h4'></i></a>
+                    <button class ='btn' style='color:rgb(52,136,245)' type="submit" ><i class='bi bi-trash h4'></i></button>
+                </form>
+            </td>
+
+          </tr>
+          @endforeach
+
+        </tbody>
+      </table>
+      {{ $items->onEachSide(5)->links() }}
+</main>
+@endsection
