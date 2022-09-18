@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreign('customer_id')->references('id')->on('customers');
             $table->BigInteger('total');
             $table->dateTime('date_at');
-            $table->dateTime('date_ship')->default(NULL);
-            $table->string('note')->default(NULL);
+            $table->dateTime('date_ship')->nullable();
+            $table->string('note')->nullable();
         });
     }
 

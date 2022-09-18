@@ -60,7 +60,7 @@ class PositonController extends Controller
             $item->delete();
             Alert::success('Xóa chức vụ '.$item->name.' thành công');
             return redirect()->route('position.index');
-        } catch (\Throwable $th) {
+        } catch (\Exception $th) {
             Alert::error('Xóa chức vụ '.$item->name.' không thành công');
             return redirect()->route('position.index');
         }

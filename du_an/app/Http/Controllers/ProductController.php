@@ -8,6 +8,7 @@ use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Supplier;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -30,6 +31,8 @@ class ProductController extends Controller
 
     public function store(ProductCreateRequest $request)
     {
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        // dd(Auth()->user());
         $items = Category::all();
         $suppliers=Supplier::all();
 
@@ -47,7 +50,7 @@ class ProductController extends Controller
         $item->quantity = $request->quantity;
         $item->category_id = $request->category_id;
         $item->supplier_id = $request->supplier;
-
+        $item->user_id=Auth()->user()->id;
         $file = $request->inputFile;
 
         if ($request->hasFile('inputFile')) {
@@ -73,8 +76,9 @@ class ProductController extends Controller
 
     public function show($id)
     {
+        $users=User::all();
         $item=Product::find($id);
-        return view('admin.products.detail', compact('item'));
+        return view('admin.products.detail', compact('item', 'users'));
     }
 
     public function edit($id)
@@ -86,6 +90,7 @@ class ProductController extends Controller
 
     public function update(ProductUpdateRequest $request, $id)
     {
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
         $item=Product::find($id);
         $item->name = $request->name;
         $item->age = $request->age;
@@ -94,6 +99,8 @@ class ProductController extends Controller
         $item->price = $request->price;
         $item->quantity = $request->quantity;
         $item->category_id = $request->category_id;
+
+        $item->user_id_edit=Auth()->user()->id;
 
         $file = $request->inputFile;
         // dd($request);

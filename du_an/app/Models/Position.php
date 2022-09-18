@@ -11,6 +11,6 @@ class Position extends Model
     protected $table ='position';
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class, 'position_id', 'id');
     }
 }

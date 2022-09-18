@@ -39,7 +39,7 @@ class ProductCreateRequest extends FormRequest
             'name.required' => 'Tên không được để trống!',
             'age.required' => 'Tuổi không được để trống!',
             'color.required' => 'Màu sắc không được để trống!',
-            'gender.required' => 'Giới không được để trống!',
+            'gender.required' => 'Giới tính không được để trống!',
             'price.required' => 'Giá không được để trống!',
             'quantity.required' => 'Số lượng không được để trống!',
             'inputFile.required' => 'Ảnh không được để trống!',

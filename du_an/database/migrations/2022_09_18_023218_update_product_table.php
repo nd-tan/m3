@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->date('deleted_at')->nullable();
-            $table->timestamps();
+        Schema::table('products', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id_edit')->nullable();
+            $table->foreign('user_id_edit')->references('id')->on('users');
         });
     }
 
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        //
     }
 };

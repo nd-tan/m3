@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::prefix('/')->middleware(['auth', 'revalidate'])->group(function(){
+
 //////////trang chu
 Route::get('/', function () {
     return view('admin.home');
@@ -83,10 +85,22 @@ Route::prefix('user')->group(function(){
     Route::get('/',[UserController::class,'index'])->name('user.index');
     ////show
     Route::get('/show/{id}',[UserController::class,'show'])->name('user.show');
-    // Route::post('/store',[PositonController::class,'store'])->name('position.store');
+    Route::get('/register',[UserController::class,'register'])->name('user.register');
+    Route::post('/checkregister',[UserController::class,'checkregister'])->name('user.checkregister');
+
     // // ///edit
-    // Route::get('/edit/{id}',[PositonController::class,'edit'])->name('position.edit');
-    // Route::put('/edit/{id}',[PositonController::class,'update'])->name('position.update');
+    Route::get('/edit/{id}',[UserController::class,'edit'])->name('user.edit');
+    Route::put('/update/{id}',[UserController::class,'update'])->name('user.update');
+
     // /////delete
-    // Route::delete('/delete/{id}',[PositonController::class,'destroy'])->name('position.delete');
+    Route::delete('/delete/{id}',[UserController::class,'destroy'])->name('user.delete');
+});
+
+});
+Route::prefix('user')->group(function(){
+
+Route::get('/login',[UserController::class,'login'])->name('login');
+Route::post('/checklogin',[UserController::class,'checklogin'])->name('user.checklogin');
+Route::get('/logout',[UserController::class,'logout'])->name('user.logout');
+
 });

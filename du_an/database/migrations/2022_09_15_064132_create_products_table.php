@@ -22,7 +22,7 @@ return new class extends Migration
             $table->bigInteger('price');
             $table->string('quantity');
             $table->string('image');
-            $table->date('deleted_at')->default(null);
+            $table->date('deleted_at')->nullable();
             $table->timestamps();
         });
     }
