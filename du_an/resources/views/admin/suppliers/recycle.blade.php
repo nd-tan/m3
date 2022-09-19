@@ -7,12 +7,12 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{route('index')}}">Trang chủ</a></li>
-          <li class="breadcrumb-item">Nhà cung cấp</a></li>
+          <li class="breadcrumb-item"><a href="{{route('supplier.index')}}">Nhà cung cấp</a></li>
+          <li class="breadcrumb-item">Thùng rác</a></li>
         </ol>
       </nav>
     </div>
-    <a class='btn btn' style='color:rgb(52,136,245)' href="{{route('supplier.add')}}">Thêm nhà cung cấp</a>
-    <a class='btn btn' style='color:rgb(52,136,245)' href="{{route('supplier.softdelete')}}">Thùng rác</a>
+    <a class='btn btn' style='color:rgb(52,136,245)' href="{{route('supplier.index')}}">Danh sách nhà cung cấp</a>
     <table class="table table-bordered border-primary" style=" text-align: center; width:100%">
         <thead>
           <tr>
@@ -35,12 +35,12 @@
             <td>{{$item->email}}</td>
             <td>
 
-                <form action="{{route('supplier.delete',$item->id)}}" method="post" >
+                <form action="{{route('supplier.deleted',$item->id)}}" method="post">
                     @method('DELETE')
                     @csrf
                     {{-- <a style='color:rgb(52,136,245)' class='btn' href="#"><i class='bi bi-eye h4'></i></a> --}}
-                    <a style='color:rgb(52,136,245)' class='btn' href="{{route('supplier.edit',$item->id)}}"><i class='bi bi-arrow-clockwise h4'></i></a>
-                    <button onclick="return confirm('Bạn có chắc muốn đưa nhà cung cấp này vào thùng rác không?');" class ='btn' style='color:rgb(52,136,245)' type="submit" ><i class='bi bi-trash h4'></i></button>
+                    <a onclick="return confirm('Bạn có chắc muốn khôi phục nhà cung cấp này không?');" style='color:rgb(52,136,245)' class='btn' href="{{route('supplier.restore',$item->id)}}"><i class='bi bi-arrow-clockwise h4'></i></a>
+                    <button onclick="return confirm('Bạn có chắc muốn xóa nhà cung cấp này không?');" class ='btn' style='color:rgb(52,136,245)' type="submit" ><i class='bi bi-trash h4'></i></button>
                 </form>
             </td>
 

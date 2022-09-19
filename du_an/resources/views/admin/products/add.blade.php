@@ -82,8 +82,8 @@
                 <label for="inputText" class="col-sm-2 col-form-label">Giới tính</label>
                 <div class="col-sm-10">
                     <select name="gender" class="select">
-                        <option value="duc">Đực</option>
-                        <option value="cai">Cái</option>
+                        <option value="đực">Đực</option>
+                        <option value="cái">Cái</option>
                     </select>
                 </div><br>
                 <label for="inputText" class="col-sm-2 col-form-label">Giá</label>

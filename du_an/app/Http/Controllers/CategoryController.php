@@ -64,4 +64,36 @@ class CategoryController extends Controller
         }
 
     }
+    public function softdelete()
+    {
+        $items=Category::onlyTrashed()->paginate(5);
+        return view('admin.categories.recycle', compact('items'));
+    }
+    public function retrieve($id)
+    {
+        $item=Category::withTrashed()->where('id', $id);
+        try {
+            $item->restore();
+            $item=Category::find($id);
+            toast('khôi phục danh mục '.$item->name.' thành công!','success','top-right');
+            return redirect()->route('category.index');
+        } catch (\Exception $th) {
+            toast('khôi phục danh mục '.$item->name.' không thành công!','error','top-right');
+            return redirect()->route('category.softdelete');
+        }
+    }
+    public function deleted($id)
+    {
+        $item=Category::onlyTrashed()->findOrFail($id);
+        try {
+            // $image = 'public/images_admin/'.$item->image;
+            // Storage::delete($image);
+            $item->forceDelete();
+            Alert::success('Xóa danh mục '.$item->name.' thành công');
+            return redirect()->route('category.softdelete');
+        } catch (\Exception $th) {
+            Alert::error('Xóa danh mục '.$item->name.' không thành công');
+            return redirect()->route('category.softdelete');
+        }
+    }
 }

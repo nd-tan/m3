@@ -127,9 +127,7 @@ class ProductController extends Controller
             $image = 'public/images/'.$fileExtension;
             Storage::delete($image);
             return redirect()->route('product.edit',$item->id);
-            // return redirect()->route('product.add');
         }
-
     }
 
     public function destroy($id)
@@ -137,14 +135,48 @@ class ProductController extends Controller
         $item=Product::findOrFail($id);
         try {
             $item->delete();
-            $image = 'public/images/'.$item->image;
-            Storage::delete($image);
+            // $image = 'public/images/'.$item->image;
+            // Storage::delete($image);
             Alert::success('Xóa sản phẩm '.$item->name.' thành công');
             return redirect()->route('product.index');
         } catch (\Exception $th) {
             Alert::error('Xóa sản phẩm '.$item->name.' không thành công');
             return redirect()->route('product.index');
         }
+    }
 
+    public function softdelete()
+    {
+        $items=Product::onlyTrashed()->paginate(5);
+        // dd($items);
+        return view('admin.products.recycle', compact('items'));
+    }
+
+    public function retrieve($id)
+    {
+        $item=Product::withTrashed()->where('id', $id);
+        try {
+            $item->restore();
+            $item=Product::find($id);
+            toast('khôi phục sản phẩm '.$item->name.' thành công!','success','top-right');
+            return redirect()->route('product.index');
+        } catch (\Exception $th) {
+            toast('khôi phục sản phẩm '.$item->name.' không thành công!','error','top-right');
+            return redirect()->route('product.softdelete');
+        }
+    }
+    public function deleted($id)
+    {
+        $item=Product::onlyTrashed()->findOrFail($id);
+        try {
+            $image = 'public/images/'.$item->image;
+            Storage::delete($image);
+            $item->forceDelete();
+            Alert::success('Xóa sản phẩm '.$item->name.' thành công');
+            return redirect()->route('product.softdelete');
+        } catch (\Exception $th) {
+            Alert::error('Xóa sản phẩm '.$item->name.' không thành công');
+            return redirect()->route('product.softdelete');
+        }
     }
 }

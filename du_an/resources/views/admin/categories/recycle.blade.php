@@ -7,12 +7,12 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{route('index')}}">Trang chủ</a></li>
-          <li class="breadcrumb-item">Danh mục</a></li>
+          <li class="breadcrumb-item"><a href="{{route('index')}}">Danh mục</a></li>
+          <li class="breadcrumb-item">Thùng rác</a></li>
         </ol>
       </nav>
     </div>
-    <a class='btn btn' style='color:rgb(52,136,245)' href="{{route('category.add')}}">Thêm danh mục</a>
-    <a class='btn btn' style='color:rgb(52,136,245)' href="{{route('category.softdelete')}}">Thùng rác</a>
+    <a class='btn btn' style='color:rgb(52,136,245)' href="{{route('category.index')}}">Danh sách danh mục</a>
     <table class="table table-bordered border-primary" style=" text-align: center">
         <thead>
           <tr>
@@ -29,12 +29,12 @@
             <td>{{$item->name}}</td>
             <td>
 
-                <form action="{{ route('category.delete', $item->id) }}" method="post" >
+                <form action="{{ route('category.deleted', $item->id) }}" method="post" >
                     @method('DELETE')
                     @csrf
                     <a style='color:rgb(52,136,245)' class='btn' href=""><i class='bi bi-eye h4'></i></a>
-                    <a style='color:rgb(52,136,245)' class='btn' href="{{route('category.edit',$item->id)}}"><i class='bi bi-arrow-clockwise h4'></i></a>
-                    <button onclick="return confirm('Bạn có chắc muốn đưa danh mục này vào thùng rác không?');" class ='btn' style='color:rgb(52,136,245)' type="submit" ><i class='bi bi-trash h4'></i></button>
+                    <a onclick="return confirm('Bạn có chắc muốn khôi phục danh mục này không?');" style='color:rgb(52,136,245)' class='btn' href="{{route('category.restore',$item->id)}}"><i class='bi bi-arrow-clockwise h4'></i></a>
+                    <button onclick="return confirm('Bạn có chắc muốn xóa danh mục này không?');" class ='btn' style='color:rgb(52,136,245)' type="submit" ><i class='bi bi-trash h4'></i></button>
                 </form>
             </td>
 

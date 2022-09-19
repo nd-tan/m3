@@ -35,8 +35,6 @@ class UserController extends Controller
         {
             return redirect()->route('index');
         }else{
-
-            // $request->session()->flush();
             return view('admin.users.login');
         }
     }
@@ -87,7 +85,7 @@ class UserController extends Controller
             $item->image = $fileExtension;
         }
         try {
-            toast('Thêm nhân viên' . $item->name . ' thành công!', 'success', 'top-right');
+            toast('Thêm nhân viên ' . $item->name . ' thành công!', 'success', 'top-right');
             $item->save();
             return redirect()->route('user.index');
         } catch (\Exception $th) {
@@ -142,13 +140,45 @@ class UserController extends Controller
         $item=User::findOrFail($id);
         try {
             $item->delete();
-            $image = 'public/images_admin/'.$item->image;
-            Storage::delete($image);
-            Alert::success('Xóa nhân viên '.$item->name.' thành công');
+            // $image = 'public/images_admin/'.$item->image;
+            // Storage::delete($image);
+            Alert::success('Nhân viên '.$item->name.' đã được đưa vào thùng rác!');
             return redirect()->route('user.index');
         } catch (\Exception $th) {
-            Alert::error('Xóa nhân viên '.$item->name.' không thành công');
+            Alert::error('Nhân viên '.$item->name.' chưa được đưa vào thùng rác!');
             return redirect()->route('user.index');
+        }
+    }
+    public function softdelete()
+    {
+        $items=User::onlyTrashed()->paginate(5);
+        return view('admin.users.recycle', compact('items'));
+    }
+    public function retrieve($id)
+    {
+        $item=User::withTrashed()->where('id', $id);
+        try {
+            $item->restore();
+            $item=User::find($id);
+            toast('khôi phục nhân viên '.$item->name.' thành công!','success','top-right');
+            return redirect()->route('user.index');
+        } catch (\Exception $th) {
+            toast('khôi phục nhân viên '.$item->name.' không thành công!','error','top-right');
+            return redirect()->route('user.softdelete');
+        }
+    }
+    public function deleted($id)
+    {
+        $item=User::onlyTrashed()->findOrFail($id);
+        try {
+            $image = 'public/images_admin/'.$item->image;
+            Storage::delete($image);
+            $item->forceDelete();
+            Alert::success('Xóa nhân viên '.$item->name.' thành công');
+            return redirect()->route('user.softdelete');
+        } catch (\Exception $th) {
+            Alert::error('Xóa nhân viên '.$item->name.' không thành công');
+            return redirect()->route('user.softdelete');
         }
     }
 }

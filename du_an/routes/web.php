@@ -33,8 +33,12 @@ Route::prefix('categories')->group(function(){
     ///edit
     Route::get('/edit/{id}',[CategoryController::class,'edit'])->name('category.edit');
     Route::put('/update/{id}',[CategoryController::class,'update'])->name('category.update');
-    /////xóa
+    ////xóa
+    Route::delete('/deleted/{id}',[CategoryController::class,'deleted'])->name('category.deleted');
+    /////xóa mềm
     Route::delete('/delete/{id}',[CategoryController::class,'destroy'])->name('category.delete');
+    Route::get('/softdelete',[CategoryController::class,'softdelete'])->name('category.softdelete');
+    Route::get('/restore/{id}',[CategoryController::class,'retrieve'])->name('category.restore');
 });
 
 ///////////sản phẩm
@@ -47,9 +51,14 @@ Route::prefix('products')->group(function(){
     Route::get('/edit/{id}',[ProductController::class,'edit'])->name('product.edit');
     Route::put('/update/{id}',[ProductController::class,'update'])->name('product.update');
     /////xóa
+    Route::delete('/deleted/{id}',[ProductController::class,'deleted'])->name('product.deleted');
+    /////xóa mềm
     Route::delete('/delete/{id}',[ProductController::class,'destroy'])->name('product.delete');
+    Route::get('/softdelete',[ProductController::class,'softdelete'])->name('product.softdelete');
+    Route::get('/restore/{id}',[ProductController::class,'retrieve'])->name('product.restore');
     ////xem chi tiết
     Route::get('/show/{id}',[ProductController::class,'show'])->name('product.show');
+
 
 });
 
@@ -63,7 +72,11 @@ Route::prefix('suppliers')->group(function(){
     Route::get('/edit/{id}',[SupplierController::class,'edit'])->name('supplier.edit');
     Route::put('/update/{id}',[SupplierController::class,'update'])->name('supplier.update');
     /////xóa
+    Route::delete('/deleted/{id}',[SupplierController::class,'deleted'])->name('supplier.deleted');
+    ///xóa mềm
     Route::delete('/delete/{id}',[SupplierController::class,'destroy'])->name('supplier.delete');
+    Route::get('/softdelete',[SupplierController::class,'softdelete'])->name('supplier.softdelete');
+    Route::get('/restore/{id}',[SupplierController::class,'retrieve'])->name('supplier.restore');
     ////xem chi tiết
     // Route::get('/show/{id}',[SupplierController::class,'show'])->name('supplier.show');
 
@@ -78,7 +91,11 @@ Route::prefix('position')->group(function(){
     Route::get('/edit/{id}',[PositonController::class,'edit'])->name('position.edit');
     Route::put('/edit/{id}',[PositonController::class,'update'])->name('position.update');
     /////delete
+    Route::delete('/deleted/{id}',[PositonController::class,'deleted'])->name('position.deleted');
+    ////xóa mềm
     Route::delete('/delete/{id}',[PositonController::class,'destroy'])->name('position.delete');
+    Route::get('/softdelete',[PositonController::class,'softdelete'])->name('position.softdelete');
+    Route::get('/restore/{id}',[PositonController::class,'retrieve'])->name('position.restore');
 });
 ///////nhân viên
 Route::prefix('user')->group(function(){
@@ -91,14 +108,16 @@ Route::prefix('user')->group(function(){
     // // ///edit
     Route::get('/edit/{id}',[UserController::class,'edit'])->name('user.edit');
     Route::put('/update/{id}',[UserController::class,'update'])->name('user.update');
-
-    // /////delete
+    /////delete
+    Route::delete('/deleted/{id}',[UserController::class,'deleted'])->name('user.deleted');
+    // /////delete mềm
     Route::delete('/delete/{id}',[UserController::class,'destroy'])->name('user.delete');
+    Route::get('/softdelete',[UserController::class,'softdelete'])->name('user.softdelete');
+    Route::get('/restore/{id}',[UserController::class,'retrieve'])->name('user.restore');
 });
 
 });
 Route::prefix('user')->group(function(){
-
 Route::get('/login',[UserController::class,'login'])->name('login');
 Route::post('/checklogin',[UserController::class,'checklogin'])->name('user.checklogin');
 Route::get('/logout',[UserController::class,'logout'])->name('user.logout');

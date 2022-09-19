@@ -126,11 +126,43 @@ class SupplierController extends Controller
         $item=Supplier::find($id);
         try {
             $item->delete();
-            Alert::success('Xóa nhà cung cấp '.$item->name.' thành công');
+            Alert::success('Nhà cung cấp '.$item->name.' đã được đưa vào thung rác!');
             return redirect()->route('supplier.index');
         } catch (\Exception $th) {
-            Alert::error('Xóa nhà cung cấp '.$item->name.' không thành công');
+            Alert::error('Nhà cung cấp '.$item->name.' chưa được đưa vào thung rác');
             return redirect()->route('supplier.index');
+        }
+    }
+    public function softdelete()
+    {
+        $items=Supplier::onlyTrashed()->paginate(5);
+        return view('admin.suppliers.recycle', compact('items'));
+    }
+    public function retrieve($id)
+    {
+        $item=Supplier::withTrashed()->where('id', $id);
+        try {
+            $item->restore();
+            $item=Supplier::find($id);
+            toast('khôi phục nhà cung cấp '.$item->name.' thành công!','success','top-right');
+            return redirect()->route('supplier.index');
+        } catch (\Exception $th) {
+            toast('khôi phục nhà cung cấp '.$item->name.' không thành công!','error','top-right');
+            return redirect()->route('supplier.softdelete');
+        }
+    }
+    public function deleted($id)
+    {
+        $item=Supplier::onlyTrashed()->findOrFail($id);
+        try {
+            // $image = 'public/images/'.$item->image;
+            // Storage::delete($image);
+            $item->forceDelete();
+            Alert::success('Xóa nhà cung cấp '.$item->name.' thành công');
+            return redirect()->route('supplier.softdelete');
+        } catch (\Exception $th) {
+            Alert::error('Xóa nhà cung cấp '.$item->name.' không thành công');
+            return redirect()->route('supplier.softdelete');
         }
     }
 }

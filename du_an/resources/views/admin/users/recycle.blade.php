@@ -3,16 +3,16 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Danh sách nhân viên</h1>
+      <h1>Nhân Viên</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{route('index')}}">Trang chủ</a></li>
-          <li class="breadcrumb-item">Danh sách nhân viên</a></li>
+          <li class="breadcrumb-item"><a href="{{route('index')}}">Nhân viên</a></li>
+          <li class="breadcrumb-item">Thùng rác</a></li>
         </ol>
       </nav>
     </div>
-    <a class='btn btn' style='color:rgb(52,136,245)' href="{{route('user.register')}}">Thêm nhân viên</a>
-    <a class='btn btn' style='color:rgb(52,136,245)' href="{{route('user.softdelete')}}">Thùng rác</a>
+    <a class='btn btn' style='color:rgb(52,136,245)' href="{{route('user.index')}}">Danh sách nhân viên</a>
     <table class="table table-bordered border-primary" style=" text-align: center; width:100%">
         <thead>
           <tr>
@@ -36,12 +36,12 @@
             </td>
             <td>
 
-                <form action="{{route('user.delete',$item->id)}}" method="post">
+                <form action="{{route('user.deleted',$item->id)}}" method="post">
                     @method('DELETE')
                     @csrf
                     <a style='color:rgb(52,136,245)' class='btn' href="{{route('user.show',$item->id)}}"><i class='bi bi-eye h4'></i></a>
-                    <a style='color:rgb(52,136,245)' class='btn' href="{{route('user.edit',$item->id)}}"><i class='bi bi-arrow-clockwise h4'></i></a>
-                    <button onclick="return confirm('Bạn có chắc muốn đưa nhân viên này vào thùng rác không?');" class ='btn' style='color:rgb(52,136,245)' type="submit" ><i class='bi bi-trash h4'></i></button>
+                    <a onclick="return confirm('Bạn có chắc muốn khôi phục nhân viên này không?');" style='color:rgb(52,136,245)' class='btn' href="{{route('user.restore',$item->id)}}"><i class='bi bi-arrow-clockwise h4'></i></a>
+                    <button onclick="return confirm('Bạn có chắc muốn xóa nhân viên này không?');" class ='btn' style='color:rgb(52,136,245)' type="submit" ><i class='bi bi-trash h4'></i></button>
                 </form>
             </td>
 
