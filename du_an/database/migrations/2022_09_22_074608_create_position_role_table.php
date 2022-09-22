@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('position', function (Blueprint $table) {
+        Schema::create('position_role', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->date('deleted_at')->nullable();
+            $table->unsignedBigInteger('position_id');
+            $table->foreign('position_id')->references('id')->on('position');
+            $table->unsignedBigInteger('role_id');
+            $table->foreign('role_id')->references('id')->on('role');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('position');
+        Schema::dropIfExists('position_role');
     }
 };

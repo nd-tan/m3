@@ -15,6 +15,10 @@ class Position extends Model
     protected $table ='position';
     public function users()
     {
-        return $this->belongsTo(User::class, 'position_id', 'id');
+        return $this->hasMany(User::class, 'position_id', 'id');
+    }
+    public function roles()
+    {
+        return $this->belongsToMany(Order::class, 'position_role', 'position_id', 'role_id');
     }
 }
