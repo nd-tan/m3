@@ -168,30 +168,30 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="{{asset('assets/img/profile-img.jpg')}}" alt="Profile" class="rounded-circle">
+            <img src="{{ asset('storage/images_admin/' . Auth()->user()->image) }}" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2">{{Auth()->user()->name}}</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Kevin Anderson</h6>
-              <span>Web Designer</span>
+              <h6>{{Auth()->user()->name}}</h6>
+              <span>{{Auth()->user()->position->name}}</span>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="{{route('user.info')}}">
                 <i class="bi bi-person"></i>
-                <span>My Profile</span>
+                <span>Thông tin</span>
               </a>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
-            <li>
+            {{-- <li>
               <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                 <i class="bi bi-gear"></i>
                 <span>Account Settings</span>
@@ -209,12 +209,12 @@
             </li>
             <li>
               <hr class="dropdown-divider">
-            </li>
+            </li> --}}
 
             <li>
               <a class="dropdown-item d-flex align-items-center" href="{{route('user.logout')}}">
                 <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
+                <span>Đăng xuất</span>
               </a>
             </li>
 

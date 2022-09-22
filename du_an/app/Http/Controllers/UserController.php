@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\Userpassword;
 use App\Http\Requests\UserupdateRequest;
 use App\Models\Position;
 use App\Models\Supplier;
@@ -11,6 +12,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -29,7 +31,7 @@ class UserController extends Controller
         $item = User::find($id);
         return view('admin.users.detail', compact('item'));
     }
-    public function login(Request $request)
+    public function login()
     {
         if(Auth::check())
         {
@@ -115,8 +117,7 @@ class UserController extends Controller
 
         if ($request->hasFile('inputFile')) {
             // dd($item->image);
-            $image = 'public/images_admin/'.$item->image;
-            Storage::delete($image);
+            $images = 'public/images_admin/'.$item->image;
 
             $fileExtension = $file->getClientOriginalName();
             //Lưu file vào thư mục storage/app/public/image với tên mới
@@ -126,6 +127,9 @@ class UserController extends Controller
         }
         try {
             $item->save();
+            if(isset($fileExtension)){
+                Storage::delete($images);
+            }
             toast('Sửa nhân viên '.$item->name.' thành công!','success','top-right');
             return redirect()->route('user.index');
         } catch (\Exception $th) {
@@ -180,5 +184,67 @@ class UserController extends Controller
             Alert::error('Xóa nhân viên '.$item->name.' không thành công');
             return redirect()->route('user.softdelete');
         }
+    }
+    public function update_info(UserupdateRequest $request,$id)
+    {
+        $item=User::find($id);
+        $item->name = $request->name;
+        $item->address = $request->address;
+        $item->phone = $request->phone;
+        $item->email = $request->email;
+
+        $file = $request->inputFile;
+        // dd($request);
+
+        if ($request->hasFile('inputFile')) {
+            // dd($item->image);
+            $images = 'public/images_admin/'.$item->image;
+
+            $fileExtension = $file->getClientOriginalName();
+            //Lưu file vào thư mục storage/app/public/image với tên mới
+            $request->file('inputFile')->storeAs('public/images_admin', $fileExtension);
+            // Gán trường image của đối tượng task với tên mới
+            $item->image = $fileExtension;
+        }
+        try {
+            $item->save();
+            if(isset($fileExtension)){
+                Storage::delete($images);
+            }
+            toast('Sửa nhân viên '.$item->name.' thành công!','success','top-right');
+            return redirect()->route('user.info');
+        } catch (\Exception $th) {
+            toast('Lối logic!','error','top-right');
+            $image = 'public/images_admin/'.$fileExtension;
+            Storage::delete($image);
+            return redirect()->route('user.info',$item->id);
+        }
+    }
+    public function info()
+    {
+        $item=Auth()->user();
+        return view('admin.users.info',compact('item'));
+    }
+    public function change_password(Userpassword $request)
+    {
+        // dd($item);
+        if($request->renewpassword==$request->newpassword)
+        {
+            if ((Hash::check($request->password, Auth::user()->password))) {
+                $item=User::find(Auth()->user()->id);
+                $item->password= bcrypt($request->newpassword);
+                $item->save();
+                toast('Thay đổi mật khẩu thành công!','success','top-right');
+                return redirect()->route('user.info');
+            }else{
+                toast('Mật khẩu hiện tại không đúng','error','top-right');
+                return redirect()->route('user.info');
+            }
+
+        }else{
+            toast('Mật khẩu nhập lại không đúng','error','top-right');
+            return redirect()->route('user.info');
+        }
+
     }
 }

@@ -114,6 +114,11 @@ Route::prefix('user')->group(function(){
     Route::delete('/delete/{id}',[UserController::class,'destroy'])->name('user.delete');
     Route::get('/softdelete',[UserController::class,'softdelete'])->name('user.softdelete');
     Route::get('/restore/{id}',[UserController::class,'retrieve'])->name('user.restore');
+    /////change info
+    Route::post('/updateinfo/{id}',[UserController::class,'update_info'])->name('user.update_info');
+    Route::post('/updatepassword',[UserController::class,'change_password'])->name('user.updatepassword');
+    Route::get('/info',[UserController::class,'info'])->name('user.info');
+
 });
 
 });
