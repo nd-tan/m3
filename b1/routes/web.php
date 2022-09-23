@@ -17,18 +17,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('coculate');
-// });
-Route::post('index',[coculatecontroller::class,'index'])->name("index");
-Route::post('coculate',[coculatecontroller::class,'coculate'])->name("coculate");
+Route::get('/index', function () {
+    return view('welcome');
+})->name('index');
+// Route::post('index',[coculatecontroller::class,'index'])->name("index");
+// Route::post('coculate',[coculatecontroller::class,'coculate'])->name("coculate");
 
-Route::get('translate/index',[transaltecontroller::class,'index'])->name("translate.index");
-Route::post('translate/dich',[transaltecontroller::class,'dich'])->name("dich");
+// Route::get('translate/index',[transaltecontroller::class,'index'])->name("translate.index");
+// Route::post('translate/dich',[transaltecontroller::class,'dich'])->name("dich");
 
-Route::get('login/index',[logincontroller::class,'index'])->name("login.index");
-Route::post('login/check',[logincontroller::class,'check'])->name("check");
+Route::get('/',[logincontroller::class,'index'])->name("login.index");
+Route::post('/check',[logincontroller::class,'check'])->name("check");
+Route::get('/logout',[logincontroller::class,'logout'])->name("logout");
 
-Route::get("email",[checkmailController::class,'index'])->name("email");
-Route::post("email/check",[checkmailController::class,'check'])->name("check.email");
+Route::get('/register',[logincontroller::class,'register'])->name("register");
+Route::get('/create',[logincontroller::class,'create'])->name("create");
+
+// Route::get("email",[checkmailController::class,'index'])->name("email");
+// Route::post("email/check",[checkmailController::class,'check'])->name("check.email");
 

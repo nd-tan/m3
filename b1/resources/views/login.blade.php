@@ -8,17 +8,19 @@
 </head>
 <body>
 <form action="{{route("check")}}" method="post">
+    @method('POST')
     @csrf
-
     <h1>đăng nhập</h1>
-    <p>ID</p>
-    <input type="text" name="id">
+    <p>Email</p>
+    <input type="text" name="email">
     <p>Password</p>
-    <input type="password" name="pw"><br><br>
+    <input type="password" name="password"><br><br>
     <input type="submit" value="đăng nhập">
+    <a href="{{route('logout')}}">đăng xuất</a>
+    <a href="{{route('register')}}">đăng ký</a>
 </form>
-@if(isset($b))
-<p>{{$b}}</p>
+@if(isset($mes))
+<p>{{$mes}}</p>
 @endif
 </body>
 </html>

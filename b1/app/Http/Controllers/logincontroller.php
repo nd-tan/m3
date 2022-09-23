@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models;
+use App\Models\Login;
 
 class logincontroller extends Controller
 {
@@ -12,15 +15,41 @@ class logincontroller extends Controller
     }
     function check(Request $request)
     {
-        $id=$request->id;
-        $pw=$request->pw;
-        // dd($id);
-        if($id=="admin" && $pw=="admin")
+        $arr=[
+            'email'=>$request->email,
+           'password'=>$request->password
+        ];
+        if(Auth::attempt($arr))
         {
-            $b="hello admin";
+            $mes="đăng nhập  thành công";
+            return view('login',compact('mes'));
         }else{
-            $b="ten dang nhap hoac mat khau khong dung";
+            // dd(Auth::attempt($arr));
+            $mes="đăng nhập không thành công";
+            return view('login',compact('mes'));
+            // return redirect()->route('index');
+
         }
-        return view("login",compact("b"));
+    }
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login.index');
+    }
+    public function register()
+    {
+        return view('register');
+    }
+    public function create(Request $request)
+    {
+        $item=new Login();
+        $item->email=$request->email;
+        $item->password=bcrypt($request->password);
+        $item->user_name=$request->user_name;
+        $item->phone=$request->phone;
+        $item->address=$request->address;
+
+        $item->save();
+        return redirect()->route('login.index');
     }
 }
