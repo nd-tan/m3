@@ -32,9 +32,11 @@
                 <form action="{{route('position.delete',$item->id)}}" method="post" >
                     @method('DELETE')
                     @csrf
-                    <a style='color:rgb(52,136,245)' class='btn' href="#"><i class='bi bi-eye h4'></i></a>
+                    <a style='color:rgb(52,136,245)' class='btn' href="{{route('position.detail',$item->id)}}"><i class='bi bi-eye h4'></i></a>
                     <a style='color:rgb(52,136,245)' class='btn' href="{{route('position.edit',$item->id)}}"><i class='bi bi-arrow-clockwise h4'></i></a>
-                    <button onclick="return confirm('Bạn có chắc muốn đưa chức vụ này vào thung rác không?');" class ='btn' style='color:rgb(52,136,245)' type="submit" ><i class='bi bi-trash h4'></i></button>
+                    @if($item->name!="Supper Admin")
+                        <button onclick="return confirm('Bạn có chắc muốn đưa chức vụ này vào thung rác không?');" class ='btn' style='color:rgb(52,136,245)' type="submit" ><i class='bi bi-trash h4'></i></button>
+                    @endif
                 </form>
             </td>
 

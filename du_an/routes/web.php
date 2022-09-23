@@ -87,6 +87,8 @@ Route::prefix('position')->group(function(){
     ////add
     Route::get('/add',[PositonController::class,'add'])->name('position.add');
     Route::post('/store',[PositonController::class,'store'])->name('position.store');
+
+    Route::get('/detail/{id}',[PositonController::class,'detail'])->name('position.detail');
     // ///edit
     Route::get('/edit/{id}',[PositonController::class,'edit'])->name('position.edit');
     Route::put('/edit/{id}',[PositonController::class,'update'])->name('position.update');

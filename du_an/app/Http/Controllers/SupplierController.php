@@ -17,6 +17,7 @@ class SupplierController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Supplier::class);
         $items=Supplier::paginate(5);
         return view('admin.suppliers.index', compact('items'));
     }
@@ -28,6 +29,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Supplier::class);
         return view('admin.suppliers.add');
     }
 
@@ -74,6 +76,7 @@ class SupplierController extends Controller
     public function edit($id)
     {
         $item=Supplier::find($id);
+        $this->authorize('update', $item);
         return view('admin.suppliers.edit',compact('item'));
     }
 
@@ -124,6 +127,7 @@ class SupplierController extends Controller
     public function destroy($id)
     {
         $item=Supplier::find($id);
+        $this->authorize('delete', $item);
         try {
             $item->delete();
             Alert::success('Nhà cung cấp '.$item->name.' đã được đưa vào thung rác!');
@@ -141,6 +145,7 @@ class SupplierController extends Controller
     public function retrieve($id)
     {
         $item=Supplier::withTrashed()->where('id', $id);
+        $this->authorize('restore', $item);
         try {
             $item->restore();
             $item=Supplier::find($id);
@@ -154,6 +159,7 @@ class SupplierController extends Controller
     public function deleted($id)
     {
         $item=Supplier::onlyTrashed()->findOrFail($id);
+        $this->authorize('forceDelete', $item);
         try {
             // $image = 'public/images/'.$item->image;
             // Storage::delete($image);

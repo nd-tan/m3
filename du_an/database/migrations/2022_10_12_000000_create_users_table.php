@@ -25,7 +25,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             // $table->unsignedBigInteger('position_id');
-            $table->foreignId('position_id')->references('id')->on('position');
+            $table->foreignId('position_id')->references('id')->on('positions');
         });
     }
 

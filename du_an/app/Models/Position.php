@@ -12,13 +12,13 @@ class Position extends Model
     use HasFactory;
     use Notifiable,
     SoftDeletes;// add soft delete
-    protected $table ='position';
+    protected $table ='positions';
     public function users()
     {
         return $this->hasMany(User::class, 'position_id', 'id');
     }
     public function roles()
     {
-        return $this->belongsToMany(Order::class, 'position_role', 'position_id', 'role_id');
+        return $this->belongsToMany(Role::class,'position_role','position_id','role_id');
     }
 }

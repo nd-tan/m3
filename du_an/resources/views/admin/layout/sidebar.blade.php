@@ -14,16 +14,21 @@
           <i class="bi bi-menu-button-wide"></i><span>Nhân Viên</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            @if(Auth::user()->hasPermission('User_viewAny'))
           <li>
             <a href="{{route('user.index')}}">
               <i class="bi bi-circle"></i><span>Danh sách nhân viên</span>
             </a>
           </li>
+          @endif
+          @if(Auth::user()->hasPermission('Position_viewAny'))
           <li>
             <a href="{{route('position.index')}}">
               <i class="bi bi-circle"></i><span>Chức vụ</span>
             </a>
           </li>
+          @endif
+
           <li>
             <a href="components-badges.html">
               <i class="bi bi-circle"></i><span>Phân quyền</span>
@@ -92,21 +97,27 @@
           <i class="bi bi-journal-text"></i><span>Sản Phẩm</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          @if(Auth::user()->hasPermission('Category_viewAny'))
           <li>
             <a href="{{route('category.index')}}">
               <i class="bi bi-circle"></i><span>Danh mục</span>
             </a>
           </li>
+          @endif
+          @if(Auth::user()->hasPermission('Product_viewAny'))
           <li>
             <a href="{{route('product.index')}}">
               <i class="bi bi-circle"></i><span>Sản Phẩm</span>
             </a>
           </li>
+          @endif
+          @if(Auth::user()->hasPermission('Supplier_viewAny'))
           <li>
             <a href="{{route('supplier.index')}}">
               <i class="bi bi-circle"></i><span>Nhà Cung Cấp</span>
             </a>
           </li>
+          @endif
           {{-- <li>
             <a href="forms-validation.html">
               <i class="bi bi-circle"></i><span>Form Validation</span>
@@ -116,6 +127,7 @@
       </li><!-- End Forms Nav -->
 
       <li class="nav-item">
+          @if(Auth::user()->hasPermission('Supplier_viewAny'))
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-layout-text-window-reverse"></i><span>Khách Hàng</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
@@ -125,15 +137,17 @@
               <i class="bi bi-circle"></i><span>Danh sách khách hàng</span>
             </a>
           </li>
+          {{-- @endif --}}
           <li>
             <a href="tables-data.html">
               <i class="bi bi-circle"></i><span>Khách hàng đã mua hàng</span>
             </a>
           </li>
         </ul>
+        @endif
       </li><!-- End Tables Nav -->
-
       <li class="nav-item">
+          @if(Auth::user()->hasPermission('Order_viewAny'))
         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-bar-chart"></i><span>Đơn Đặt Hàng</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
@@ -154,6 +168,7 @@
             </a>
           </li> --}}
         </ul>
+        @endif
       </li><!-- End Charts Nav -->
 
       {{-- <li class="nav-item">

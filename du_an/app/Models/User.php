@@ -8,12 +8,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes; // add soft delete
+use App\Traits\HasPermissions;
 
 class User extends Authenticatable
 {
     use Notifiable,
     SoftDeletes;// add soft delete
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasPermissions;
 
     /**
      * The attributes that are mass assignable.
@@ -52,4 +53,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Product::class, 'user_id', 'id');
     }
+
+    // public function hasPermission( $permission_name )
+    // {
+    //     return $user->hasPermission('Product_viewAny');
+    // }
 }

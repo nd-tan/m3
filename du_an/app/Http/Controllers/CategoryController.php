@@ -11,12 +11,14 @@ class CategoryController extends Controller
 {
     public function index()
     {
+        $this->authorize('viewAny', Category::class);
         $items=Category::paginate(5);
         return view('admin.categories.index',compact('items'));
     }
     /////add
     public function add()
     {
+        $this->authorize('create', Category::class);
         return view('admin.categories.add');
     }
     public function store(CategoryRequest $request)
@@ -36,6 +38,7 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $item=Category::find($id);
+        $this->authorize('update', $item);
         return view('admin.categories.edit',compact('item'));
     }
     public function update(CategoryRequest $request,$id)
@@ -54,6 +57,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $item=Category::findOrFail($id);
+        $this->authorize('delete', $item);
         try {
             $item->delete();
             Alert::success('Xóa danh mục '.$item->name.' thành công');
@@ -67,11 +71,13 @@ class CategoryController extends Controller
     public function softdelete()
     {
         $items=Category::onlyTrashed()->paginate(5);
+
         return view('admin.categories.recycle', compact('items'));
     }
     public function retrieve($id)
     {
         $item=Category::withTrashed()->where('id', $id);
+        $this->authorize('restore', $item);
         try {
             $item->restore();
             $item=Category::find($id);
@@ -85,6 +91,7 @@ class CategoryController extends Controller
     public function deleted($id)
     {
         $item=Category::onlyTrashed()->findOrFail($id);
+        $this->authorize('forceDelete', $item);
         try {
             // $image = 'public/images_admin/'.$item->image;
             // Storage::delete($image);

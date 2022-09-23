@@ -10,6 +10,6 @@ class Role extends Model
     use HasFactory;
     public function positions()
     {
-        return $this->belongsToMany(Order::class, 'position_role', 'role_id', 'position_id');
+        return $this->belongsToMany(Position::class);
     }
 }

@@ -21,6 +21,7 @@ class UserController extends Controller
 {
     public function index()
     {
+        $this->authorize('viewAny', User::class);
         $items = User::paginate(5);
         // dd($items);
         return view('admin.users.index', compact('items'));
@@ -28,6 +29,7 @@ class UserController extends Controller
     public function show($id)
     {
         // dd($id);
+        $this->authorize('view', User::class);
         $item = User::find($id);
         return view('admin.users.detail', compact('item'));
     }
@@ -63,6 +65,7 @@ class UserController extends Controller
     }
     public function register()
     {
+        $this->authorize('create', User::class);
         $positions=Position::all();
         return view('admin.users.add',compact('positions'));
     }
@@ -101,6 +104,7 @@ class UserController extends Controller
     {
         $positions=Position::all();
         $item=User::find($id);
+        $this->authorize('update', $item);
         return view('admin.users.edit', compact('item', 'positions'));
     }
     public function update(UserupdateRequest $request,$id)
@@ -142,6 +146,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         $item=User::findOrFail($id);
+        $this->authorize('delete', $item);
         try {
             $item->delete();
             // $image = 'public/images_admin/'.$item->image;
@@ -161,6 +166,7 @@ class UserController extends Controller
     public function retrieve($id)
     {
         $item=User::withTrashed()->where('id', $id);
+        $this->authorize('restore', $item);
         try {
             $item->restore();
             $item=User::find($id);
@@ -174,6 +180,7 @@ class UserController extends Controller
     public function deleted($id)
     {
         $item=User::onlyTrashed()->findOrFail($id);
+        $this->authorize('forceDelete', $item);
         try {
             $image = 'public/images_admin/'.$item->image;
             Storage::delete($image);

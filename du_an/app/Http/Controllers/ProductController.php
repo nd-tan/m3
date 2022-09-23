@@ -16,6 +16,7 @@ class ProductController extends Controller
 {
     public function index()
     {
+        $this->authorize('viewAny', Product::class);
         // $items = Product::all();
         $items = Product::paginate(3);
         $suppliers=Supplier::all();
@@ -24,6 +25,7 @@ class ProductController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Product::class);
         $items = Category::all();
         $suppliers=Supplier::all();
         return view('admin.products.add', compact('items','suppliers'));
@@ -76,6 +78,7 @@ class ProductController extends Controller
 
     public function show($id)
     {
+        $this->authorize('view', Product::class);
         $users=User::all();
         $item=Product::find($id);
         return view('admin.products.detail', compact('item', 'users'));
@@ -85,6 +88,7 @@ class ProductController extends Controller
     {
         $items = Category::all();
         $item=Product::find($id);
+        $this->authorize('update', $item);
         return view('admin.products.edit', compact('item', 'items'));
     }
 
@@ -133,6 +137,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $item=Product::findOrFail($id);
+        $this->authorize('delete', $item);
         try {
             $item->delete();
             // $image = 'public/images/'.$item->image;
@@ -155,6 +160,7 @@ class ProductController extends Controller
     public function retrieve($id)
     {
         $item=Product::withTrashed()->where('id', $id);
+        $this->authorize('restore', $item);
         try {
             $item->restore();
             $item=Product::find($id);
@@ -168,6 +174,7 @@ class ProductController extends Controller
     public function deleted($id)
     {
         $item=Product::onlyTrashed()->findOrFail($id);
+        $this->authorize('forceDelete', $item);
         try {
             $image = 'public/images/'.$item->image;
             Storage::delete($image);
