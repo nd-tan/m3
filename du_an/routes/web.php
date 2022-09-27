@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\PositonController;
+use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
@@ -83,21 +83,23 @@ Route::prefix('suppliers')->group(function(){
 });
 ///////chuc vu
 Route::prefix('position')->group(function(){
-    Route::get('/',[PositonController::class,'index'])->name('position.index');
+    Route::get('/',[PositionController::class,'index'])->name('position.index');
     ////add
-    Route::get('/add',[PositonController::class,'add'])->name('position.add');
-    Route::post('/store',[PositonController::class,'store'])->name('position.store');
+    Route::get('/add',[PositionController::class,'add'])->name('position.add');
+    Route::post('/store',[PositionController::class,'store'])->name('position.store');
 
-    Route::get('/detail/{id}',[PositonController::class,'detail'])->name('position.detail');
     // ///edit
-    Route::get('/edit/{id}',[PositonController::class,'edit'])->name('position.edit');
-    Route::put('/edit/{id}',[PositonController::class,'update'])->name('position.update');
+    Route::get('/edit/{id}',[PositionController::class,'edit'])->name('position.edit');
+    Route::put('/edit/{id}',[PositionController::class,'update'])->name('position.update');
     /////delete
-    Route::delete('/deleted/{id}',[PositonController::class,'deleted'])->name('position.deleted');
+    Route::delete('/deleted/{id}',[PositionController::class,'deleted'])->name('position.deleted');
     ////xóa mềm
-    Route::delete('/delete/{id}',[PositonController::class,'destroy'])->name('position.delete');
-    Route::get('/softdelete',[PositonController::class,'softdelete'])->name('position.softdelete');
-    Route::get('/restore/{id}',[PositonController::class,'retrieve'])->name('position.restore');
+    Route::delete('/delete/{id}',[PositionController::class,'destroy'])->name('position.delete');
+    Route::get('/softdelete',[PositionController::class,'softdelete'])->name('position.softdelete');
+    Route::get('/restore/{id}',[PositionController::class,'retrieve'])->name('position.restore');
+
+    Route::get('/detail/{id}',[PositionController::class,'detail'])->name('position.detail');
+    Route::put('/update_position/{id}',[PositionController::class,'update_position'])->name('position.update_position');
 });
 ///////nhân viên
 Route::prefix('user')->group(function(){

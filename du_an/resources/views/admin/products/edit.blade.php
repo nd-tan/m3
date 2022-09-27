@@ -8,13 +8,10 @@
         width: 820px;
         height: 40px;
     }
-
 </style>
-
 @extends('admin.index')
 @section('content')
     <main id="main" class="main">
-
         <div class="pagetitle">
             <h1>Sản Phẩm</h1>
             <nav>
@@ -25,33 +22,31 @@
                 </ol>
             </nav>
         </div>
-
-        <form action="{{ route('product.update',$item->id) }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('product.update', $item->id) }}" method="post" enctype="multipart/form-data">
             @method('PUT')
             @csrf
             <div class="row mb-3">
                 <label for="inputText" class="col-sm-2 col-form-label">Tên sản phẩm</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                        value="{{$item->name }}">
+                        value="{{ $item->name }}">
                     @error('name')
                         <label class="text text-danger">{{ $message }}</label>
                     @enderror
                 </div><br>
-
                 <label for="inputText" class="col-sm-2 col-form-label">Danh mục</label>
                 <div class="col-sm-10">
                     <select name="category_id" class="select">
                         @foreach ($items as $value)
-                            <option <?= $value->id == $item->category_id ? 'selected' : '' ?> value="{{ $value->id }}">{{ $value->name }}</option>
+                            <option <?= $value->id == $item->category_id ? 'selected' : '' ?> value="{{ $value->id }}">
+                                {{ $value->name }}</option>
                         @endforeach
                     </select>
                 </div>
-
                 <label for="inputText" class="col-sm-2 col-form-label">Tuổi</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control @error('age') is-invalid @enderror" name="age"
-                        value="{{$item->age}}">
+                        value="{{ $item->age }}">
                     @error('age')
                         <div class="text text-danger">{{ $message }}</div>
                     @enderror
@@ -89,13 +84,14 @@
                 </div>
                 <label for="inputText" class="col-sm-2 col-form-label">Hình ảnh</label>
                 <div class="col-sm-10">
-                    <input accept="image/*" type='file' id="inputFile" name="inputFile"  /><br>
+                    <input accept="image/*" type='file' id="inputFile" name="inputFile" /><br>
                     @error('inputFile')
                         <div class="text text-danger">{{ $message }}</div>
                     @enderror
                     <br>
-                    <img type="hidden" width="90px" height="90px" id="blah1" src="{{ asset('storage/images/' . $item->image) ?? asset('storage/images/'.$request->inputFile) }}" alt=""  />
-
+                    <img type="hidden" width="90px" height="90px" id="blah1"
+                        src="{{ asset('storage/images/' . $item->image) ?? asset('storage/images/' . $request->inputFile) }}"
+                        alt="" />
                 </div>
             </div>
             <div class="row mb-3">
@@ -105,9 +101,6 @@
                 </div>
             </div>
             </div>
-
         </form>
-
-
     </main>
 @endsection

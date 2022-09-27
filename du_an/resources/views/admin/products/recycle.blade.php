@@ -4,10 +4,7 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="row">
-
-
                     <main id="main" class="main">
-
                         <div class="pagetitle">
                             <h1>Sản Phẩm</h1>
                             <nav>
@@ -41,19 +38,23 @@
                                             <img src="{{ asset('storage/images/' . $item->image) }}" alt="" width='120px' height="100px">
                                         </td>
                                         <td>
-
                                             <form action="{{ route('product.deleted', $item->id) }}" method="post">
                                                 @method('DELETE')
                                                 @csrf
+                                                @if(Auth::user()->hasPermission('Product_view'))
                                                 <a style='color:rgb(52,136,245)' class='btn' href="{{ route('product.show', $item->id) }}"><i
                                                         class='bi bi-eye h4'></i></a>
+                                                @endif
+                                                @if(Auth::user()->hasPermission('Product_restore'))
                                                 <a onclick="return confirm('Bạn có chắc muốn khôi phục sản phẩm này không?');" style='color:rgb(52,136,245)' class='btn' href="{{ route('product.restore', $item->id) }}"><i
                                                         class='bi bi-arrow-clockwise h4'></i></a>
+                                                @endif
+                                                @if(Auth::user()->hasPermission('Product_forceDelete'))
                                                 <button onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này không?');" class='btn' style='color:rgb(52,136,245)' type="submit"><i
                                                         class='bi bi-trash h4'></i></button>
+                                                @endif
                                             </form>
                                         </td>
-
                                     </tr>
                                 @endforeach
                             </tbody>

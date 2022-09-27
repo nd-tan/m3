@@ -28,7 +28,7 @@ class PositionPolicy
      * @param  \App\Models\Position  $position
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Position $position)
+    public function view(User $user)
     {
          return $user->hasPermission('Position_view');
     }
@@ -51,7 +51,7 @@ class PositionPolicy
      * @param  \App\Models\Position  $position
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Position $position)
+    public function update(User $user)
     {
         return $user->hasPermission('Position_update');
     }
@@ -63,7 +63,7 @@ class PositionPolicy
      * @param  \App\Models\Position  $position
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Position $position)
+    public function delete(User $user)
     {
        return $user->hasPermission('Position_delete');
     }
@@ -75,7 +75,7 @@ class PositionPolicy
      * @param  \App\Models\Position  $position
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Position $position)
+    public function restore(User $user)
     {
          return $user->hasPermission('Position_restore');
     }
@@ -87,7 +87,7 @@ class PositionPolicy
      * @param  \App\Models\Position  $position
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Position $position)
+    public function forceDelete(User $user)
     {
          return $user->hasPermission('Position_forceDelete');
     }

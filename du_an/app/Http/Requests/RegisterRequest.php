@@ -29,6 +29,7 @@ class RegisterRequest extends FormRequest
             'address' => 'required',
             'email' => 'required|unique:users',
             'inputFile' => 'required',
+            'birthday' => 'required',
         ];
     }
     public function messages()
@@ -40,6 +41,7 @@ class RegisterRequest extends FormRequest
             'email.required' => 'Email không được để trống!',
             'email.unique' => 'Email đã tồn tại!',
             'inputFile.required' => 'Hình ảnh không được để trống!',
+            'birthday.required' => 'Ngày sinh không được để trống!',
         ];
     }
 }

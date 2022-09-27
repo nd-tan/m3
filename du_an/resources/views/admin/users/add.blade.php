@@ -78,23 +78,35 @@
                     <div class="text text-danger">{{ $message }}</div>
                 @enderror
                 </div><br>
-                {{-- <label for="inputText" class="col-sm-2 col-form-label">Mật khẩu</label>
+
+                {{-- <label for="inputText" class="col-sm-2 col-form-label">Số điện thoại</label>
                 <div class="col-sm-10">
-                    <input type="password" class="form-control @error('price') is-invalid @enderror" name="password"
-                    value="{{$request->price ?? old('price') }}">
-                @error('password')
-                    <div class="text text-danger">{{ $message }}</div>
-                @enderror
-                </div><br>
-                <label for="inputText" class="col-sm-2 col-form-label">Nhập lại mật khẩu</label>
-                <div class="col-sm-10">
-                    <input type="password" class="form-control @error('price') is-invalid @enderror" name="confirmpassword"
-                    value="{{$request->price ?? old('price') }}">
-                @error('confirmpassword')
+                    <input type="text" class="form-control @error('price') is-invalid @enderror" name="phone"
+                    value="{{$request->phone ?? old('phone') }}">
+                @error('phone')
                     <div class="text text-danger">{{ $message }}</div>
                 @enderror
                 </div><br> --}}
 
+                <label for="inputText" class="col-sm-2 col-form-label">Ngày sinh</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control @error('birthday') is-invalid @enderror" name="birthday"
+                    value="{{$request->birthday ?? old('birthday') }}">
+                @error('birthday')
+                    <div class="text text-danger">{{ $message }}</div>
+                @enderror
+                </div><br>
+                <label for="inputText" class="col-sm-2 col-form-label">Giới tính</label>
+                <div class="col-sm-10">
+                    <select name="gender" class="select">
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
+                        <option value="Khác">Khác</option>
+                    </select>
+                @error('gender')
+                    <div class="text text-danger">{{ $message }}</div>
+                @enderror
+                </div><br>
                 <label for="inputText" class="col-sm-2 col-form-label">Hình ảnh</label>
                 <div class="col-sm-10">
                     <input accept="image/*" type='file' id="inputFile" name="inputFile"  /><br>
@@ -103,7 +115,6 @@
                     @enderror
                     <br>
                     <img type="hidden" width="90px" height="90px" id="blah" src="" alt=""  />
-
                 </div>
             </div>
             <div class="row mb-3">

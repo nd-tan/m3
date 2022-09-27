@@ -28,7 +28,7 @@ class CategoryPolicy
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Category $category)
+    public function view(User $user)
     {
       return $user->hasPermission('Category_view');
     }
@@ -51,7 +51,7 @@ class CategoryPolicy
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Category $category)
+    public function update(User $user)
     {
        return $user->hasPermission('Category_update');
     }
@@ -63,8 +63,9 @@ class CategoryPolicy
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Category $category)
+    public function delete(User $user)
     {
+
        return $user->hasPermission('Category_delete');
     }
 
@@ -75,8 +76,9 @@ class CategoryPolicy
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Category $category)
+    public function restore(User $user)
     {
+        return true;
        return $user->hasPermission('Category_restore');
     }
 
@@ -87,7 +89,7 @@ class CategoryPolicy
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Category $category)
+    public function forceDelete(User $user)
     {
        return $user->hasPermission('Category_forceDelete');
     }

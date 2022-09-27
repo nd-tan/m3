@@ -26,13 +26,14 @@ class UserController extends Controller
         // dd($items);
         return view('admin.users.index', compact('items'));
     }
+
     public function show($id)
     {
-        // dd($id);
         $this->authorize('view', User::class);
         $item = User::find($id);
         return view('admin.users.detail', compact('item'));
     }
+
     public function login()
     {
         if(Auth::check())
@@ -42,6 +43,7 @@ class UserController extends Controller
             return view('admin.users.login');
         }
     }
+
     public function logout()
     {
         Auth::logout();
@@ -63,12 +65,14 @@ class UserController extends Controller
             return redirect()->route('login');
         }
     }
+
     public function register()
     {
         $this->authorize('create', User::class);
         $positions=Position::all();
         return view('admin.users.add',compact('positions'));
     }
+
     public function checkregister(RegisterRequest $request)
     {
         $item = new User();
@@ -78,10 +82,9 @@ class UserController extends Controller
         $item->email = $request->email;
         $item->password = bcrypt("admin");
         $item->position_id=$request->position;
-
-
+        $item->gender=$request->gender;
+        $item->birthday=$request->birthday;
         $file = $request->inputFile;
-
         if ($request->hasFile('inputFile')) {
             $fileExtension = $file->getClientOriginalName();
             //Lưu file vào thư mục storage/app/public/image với tên mới
@@ -90,16 +93,17 @@ class UserController extends Controller
             $item->image = $fileExtension;
         }
         try {
-            toast('Thêm nhân viên ' . $item->name . ' thành công!', 'success', 'top-right');
+            toast('Thêm nhân viên thành công!', 'success', 'top-right');
             $item->save();
             return redirect()->route('user.index');
         } catch (\Exception $th) {
-            toast('Lỗi logic hoặc mật khẩu nhập lại không đúng!','error','top-right');
+            toast('Thêm nhân viên không thành công!','error','top-right');
             $image = 'public/images_admin/'.$item->image;
             Storage::delete($image);
             return view('admin.users.add');
         }
     }
+
     public function edit($id)
     {
         $positions=Position::all();
@@ -107,6 +111,7 @@ class UserController extends Controller
         $this->authorize('update', $item);
         return view('admin.users.edit', compact('item', 'positions'));
     }
+
     public function update(UserupdateRequest $request,$id)
     {
         $item=User::find($id);
@@ -115,14 +120,12 @@ class UserController extends Controller
         $item->phone = $request->phone;
         $item->email = $request->email;
         $item->position_id=$request->position;
-
+        $item->gender=$request->gender;
+        $item->birthday=$request->birthday;
         $file = $request->inputFile;
-        // dd($request);
-
         if ($request->hasFile('inputFile')) {
             // dd($item->image);
             $images = 'public/images_admin/'.$item->image;
-
             $fileExtension = $file->getClientOriginalName();
             //Lưu file vào thư mục storage/app/public/image với tên mới
             $request->file('inputFile')->storeAs('public/images_admin', $fileExtension);
@@ -134,35 +137,36 @@ class UserController extends Controller
             if(isset($fileExtension)){
                 Storage::delete($images);
             }
-            toast('Sửa nhân viên '.$item->name.' thành công!','success','top-right');
+            toast('Sửa nhân viên thành công!','success','top-right');
             return redirect()->route('user.index');
         } catch (\Exception $th) {
-            toast('Lối logic!','error','top-right');
+            toast('Sửa nhân viên không thành công!','error','top-right');
             $image = 'public/images_admin/'.$fileExtension;
             Storage::delete($image);
             return redirect()->route('user.edit',$item->id);
         }
     }
+
     public function destroy($id)
     {
         $item=User::findOrFail($id);
         $this->authorize('delete', $item);
         try {
             $item->delete();
-            // $image = 'public/images_admin/'.$item->image;
-            // Storage::delete($image);
-            Alert::success('Nhân viên '.$item->name.' đã được đưa vào thùng rác!');
+            toast('Nhân viên đã được đưa vào thùng rác!','success','top-right');
             return redirect()->route('user.index');
         } catch (\Exception $th) {
-            Alert::error('Nhân viên '.$item->name.' chưa được đưa vào thùng rác!');
+            toast('Nhân viên chưa được đưa vào thùng rác!','error','top-right');
             return redirect()->route('user.index');
         }
     }
+
     public function softdelete()
     {
         $items=User::onlyTrashed()->paginate(5);
         return view('admin.users.recycle', compact('items'));
     }
+
     public function retrieve($id)
     {
         $item=User::withTrashed()->where('id', $id);
@@ -170,13 +174,14 @@ class UserController extends Controller
         try {
             $item->restore();
             $item=User::find($id);
-            toast('khôi phục nhân viên '.$item->name.' thành công!','success','top-right');
+            toast('Khôi phục nhân viên thành công!','success','top-right');
             return redirect()->route('user.index');
         } catch (\Exception $th) {
-            toast('khôi phục nhân viên '.$item->name.' không thành công!','error','top-right');
+            toast('Khôi phục nhân viên không thành công!','error','top-right');
             return redirect()->route('user.softdelete');
         }
     }
+
     public function deleted($id)
     {
         $item=User::onlyTrashed()->findOrFail($id);
@@ -185,13 +190,14 @@ class UserController extends Controller
             $image = 'public/images_admin/'.$item->image;
             Storage::delete($image);
             $item->forceDelete();
-            Alert::success('Xóa nhân viên '.$item->name.' thành công');
+            toast('Xóa nhân viên thành công!','success','top-right');
             return redirect()->route('user.softdelete');
         } catch (\Exception $th) {
-            Alert::error('Xóa nhân viên '.$item->name.' không thành công');
+            toast('Xóa nhân viên không thành công!','error','top-right');
             return redirect()->route('user.softdelete');
         }
     }
+
     public function update_info(UserupdateRequest $request,$id)
     {
         $item=User::find($id);
@@ -199,14 +205,12 @@ class UserController extends Controller
         $item->address = $request->address;
         $item->phone = $request->phone;
         $item->email = $request->email;
-
+        $item->gender = $request->gender;
+        $item->birthday = $request->birthday;
         $file = $request->inputFile;
-        // dd($request);
-
         if ($request->hasFile('inputFile')) {
             // dd($item->image);
             $images = 'public/images_admin/'.$item->image;
-
             $fileExtension = $file->getClientOriginalName();
             //Lưu file vào thư mục storage/app/public/image với tên mới
             $request->file('inputFile')->storeAs('public/images_admin', $fileExtension);
@@ -218,7 +222,7 @@ class UserController extends Controller
             if(isset($fileExtension)){
                 Storage::delete($images);
             }
-            toast('Sửa nhân viên '.$item->name.' thành công!','success','top-right');
+            toast('Sửa nhân viên thành công!','success','top-right');
             return redirect()->route('user.info');
         } catch (\Exception $th) {
             toast('Lối logic!','error','top-right');
@@ -227,14 +231,15 @@ class UserController extends Controller
             return redirect()->route('user.info',$item->id);
         }
     }
+    
     public function info()
     {
         $item=Auth()->user();
         return view('admin.users.info',compact('item'));
     }
+
     public function change_password(Userpassword $request)
     {
-        // dd($item);
         if($request->renewpassword==$request->newpassword)
         {
             if ((Hash::check($request->password, Auth::user()->password))) {
@@ -247,11 +252,9 @@ class UserController extends Controller
                 toast('Mật khẩu hiện tại không đúng','error','top-right');
                 return redirect()->route('user.info');
             }
-
         }else{
             toast('Mật khẩu nhập lại không đúng','error','top-right');
             return redirect()->route('user.info');
         }
-
     }
 }

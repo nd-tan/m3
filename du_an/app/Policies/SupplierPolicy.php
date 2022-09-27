@@ -28,7 +28,7 @@ class SupplierPolicy
      * @param  \App\Models\Supplier  $supplier
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Supplier $supplier)
+    public function view(User $user)
     {
        return $user->hasPermission('Supplier_view');
     }
@@ -51,7 +51,7 @@ class SupplierPolicy
      * @param  \App\Models\Supplier  $supplier
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Supplier $supplier)
+    public function update(User $user)
     {
        return $user->hasPermission('Supplier_update');
     }
@@ -63,7 +63,7 @@ class SupplierPolicy
      * @param  \App\Models\Supplier  $supplier
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Supplier $supplier)
+    public function delete(User $user)
     {
         return $user->hasPermission('Supplier_delete');
     }
@@ -75,7 +75,7 @@ class SupplierPolicy
      * @param  \App\Models\Supplier  $supplier
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Supplier $supplier)
+    public function restore(User $user)
     {
        return $user->hasPermission('Supplier_restore');
     }
@@ -87,7 +87,7 @@ class SupplierPolicy
      * @param  \App\Models\Supplier  $supplier
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Supplier $supplier)
+    public function forceDelete(User $user)
     {
         return $user->hasPermission('Supplier_forceDelete');
     }

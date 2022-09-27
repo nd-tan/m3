@@ -28,6 +28,7 @@ class UserupdateRequest extends FormRequest
             'phone' => 'required',
             'address' => 'required',
             'email' => 'required',
+            'birthday' => 'required',
         ];
     }
     public function messages()
@@ -37,6 +38,7 @@ class UserupdateRequest extends FormRequest
             'phone.required' => 'Số điện thoại không được để trống!',
             'address.required' => 'Địa chỉ không được để trống!',
             'email.required' => 'Email không được để trống!',
+            'birthday.required' => 'Ngày sinh không được để trống!',
         ];
     }
 }

@@ -39,8 +39,12 @@
                     @method('DELETE')
                     @csrf
                     {{-- <a style='color:rgb(52,136,245)' class='btn' href="#"><i class='bi bi-eye h4'></i></a> --}}
+                    @if(Auth::user()->hasPermission('Supplier_restore'))
                     <a onclick="return confirm('Bạn có chắc muốn khôi phục nhà cung cấp này không?');" style='color:rgb(52,136,245)' class='btn' href="{{route('supplier.restore',$item->id)}}"><i class='bi bi-arrow-clockwise h4'></i></a>
+                    @endif
+                    @if(Auth::user()->hasPermission('Supplier_forceDelete'))
                     <button onclick="return confirm('Bạn có chắc muốn xóa nhà cung cấp này không?');" class ='btn' style='color:rgb(52,136,245)' type="submit" ><i class='bi bi-trash h4'></i></button>
+                    @endif
                 </form>
             </td>
 

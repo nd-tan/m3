@@ -78,6 +78,27 @@
                     <div class="text text-danger">{{ $message }}</div>
                 @enderror
                 </div><br>
+
+                <label for="inputText" class="col-sm-2 col-form-label">Ngày sinh</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control @error('birthday') is-invalid @enderror" name="birthday"
+                    value="{{$item->birthday}}">
+                @error('birthday')
+                    <div class="text text-danger">{{ $message }}</div>
+                @enderror
+                </div><br>
+                <label for="inputText" class="col-sm-2 col-form-label">Giới tính</label>
+                <div class="col-sm-10">
+                    <select name="gender" class="select">
+                        <option {{$item->gender=="Nam" ? 'selected' : ''}} value="Nam">Nam</option>
+                        <option {{$item->gender=="Nữ" ? 'selected' : ''}} value="Nữ">Nữ</option>
+                        <option {{$item->gender=="Khác" ? 'selected' : ''}} value="Khác">Khác</option>
+                    </select>
+                @error('gender')
+                    <div class="text text-danger">{{ $message }}</div>
+                @enderror
+                </div><br>
+
                 <label for="inputText" class="col-sm-2 col-form-label">Hình ảnh</label>
                 <div class="col-sm-10">
                     <input accept="image/*" type='file' id="inputFile" name="inputFile"  /><br>

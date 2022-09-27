@@ -23,7 +23,7 @@
 
               <img src="{{ asset('storage/images_admin/' . $item->image)}}" alt="Profile" class="rounded-circle">
               <h2>{{$item->name}}</h2>
-              <h3>Web Designer</h3>
+              {{-- <h3></h3> --}}
               <div class="social-links mt-2">
                 <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
                 <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
@@ -80,6 +80,14 @@
                     <div class="col-lg-3 col-md-4 label">Chức vụ</div>
                     <div class="col-lg-9 col-md-8">{{ $item->position->name}}</div>
                   </div>
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Giới tính</div>
+                    <div class="col-lg-9 col-md-8">{{$item->gender}}</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Ngày sinh</div>
+                    <div class="col-lg-9 col-md-8">{{$item->birthday}}</div>
+                  </div>
 
                   <div class="row">
                     <div class="col-lg-3 col-md-4 label">Email</div>
@@ -97,10 +105,7 @@
                     <div class="col-lg-9 col-md-8">{{$item->phone}}</div>
                   </div>
 
-                  {{-- <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Email</div>
-                    <div class="col-lg-9 col-md-8">k.anderson@example.com</div>
-                  </div> --}}
+
 
                 </div>
 

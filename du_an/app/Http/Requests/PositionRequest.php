@@ -24,7 +24,7 @@ class PositionRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:position',
+            'name' => 'required|unique:positions',
         ];
     }
     public function messages()

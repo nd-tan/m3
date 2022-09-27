@@ -9,7 +9,10 @@
         </a>
       </li><!-- End Dashboard Nav -->
 
-      <li class="nav-item">
+      @if(Auth::user()->hasPermission('User_viewAny')
+      ||Auth::user()->hasPermission('Position_viewAny'))
+
+    <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-menu-button-wide"></i><span>Nhân Viên</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
@@ -28,12 +31,12 @@
             </a>
           </li>
           @endif
-
+{{--
           <li>
             <a href="components-badges.html">
               <i class="bi bi-circle"></i><span>Phân quyền</span>
             </a>
-          </li>
+          </li> --}}
           {{-- <li>
             <a href="components-breadcrumbs.html">
               <i class="bi bi-circle"></i><span>Breadcrumbs</span>
@@ -90,8 +93,12 @@
             </a>
           </li> --}}
         </ul>
-      </li><!-- End Components Nav -->
+    </li><!-- End Components Nav -->
+    @endif
 
+      @if(Auth::user()->hasPermission('Category_viewAny')
+      || Auth::user()->hasPermission('Product_viewAny')
+      ||Auth::user()->hasPermission('Supplier_viewAny'))
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-journal-text"></i><span>Sản Phẩm</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -125,7 +132,7 @@
           </li> --}}
         </ul>
       </li><!-- End Forms Nav -->
-
+      @endif
       <li class="nav-item">
           @if(Auth::user()->hasPermission('Supplier_viewAny'))
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
@@ -144,10 +151,10 @@
             </a>
           </li>
         </ul>
-        @endif
-      </li><!-- End Tables Nav -->
+    </li><!-- End Tables Nav -->
+    @endif
+    @if(Auth::user()->hasPermission('Order_viewAny'))
       <li class="nav-item">
-          @if(Auth::user()->hasPermission('Order_viewAny'))
         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-bar-chart"></i><span>Đơn Đặt Hàng</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
@@ -168,8 +175,8 @@
             </a>
           </li> --}}
         </ul>
-        @endif
-      </li><!-- End Charts Nav -->
+    </li><!-- End Charts Nav -->
+    @endif
 
       {{-- <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">

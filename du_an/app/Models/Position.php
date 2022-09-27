@@ -9,10 +9,10 @@ use Illuminate\Notifications\Notifiable;
 
 class Position extends Model
 {
+    protected $table ='positions';
     use HasFactory;
     use Notifiable,
     SoftDeletes;// add soft delete
-    protected $table ='positions';
     public function users()
     {
         return $this->hasMany(User::class, 'position_id', 'id');

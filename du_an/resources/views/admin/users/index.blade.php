@@ -11,7 +11,9 @@
         </ol>
       </nav>
     </div>
+    @if(Auth::user()->hasPermission('User_create'))
     <a class='btn btn' style='color:rgb(52,136,245)' href="{{route('user.register')}}">Thêm nhân viên</a>
+    @endif
     <a class='btn btn' style='color:rgb(52,136,245)' href="{{route('user.softdelete')}}">Thùng rác</a>
     <table class="table table-bordered border-primary" style=" text-align: center; width:100%">
         <thead>
@@ -39,9 +41,15 @@
                 <form action="{{route('user.delete',$item->id)}}" method="post">
                     @method('DELETE')
                     @csrf
+                    @if(Auth::user()->hasPermission('User_view'))
                     <a style='color:rgb(52,136,245)' class='btn' href="{{route('user.show',$item->id)}}"><i class='bi bi-eye h4'></i></a>
-                    <a style='color:rgb(52,136,245)' class='btn' href="{{route('user.edit',$item->id)}}"><i class='bi bi-arrow-clockwise h4'></i></a>
+                    @endif
+                    @if(Auth::user()->hasPermission('User_update'))
+                    <a style='color:rgb(52,136,245)' class='btn' href="{{route('user.edit',$item->id)}}"><i class='bi bi-pencil-square h4'></i></a>
+                    @endif
+                    @if(Auth::user()->hasPermission('User_delete'))
                     <button onclick="return confirm('Bạn có chắc muốn đưa nhân viên này vào thùng rác không?');" class ='btn' style='color:rgb(52,136,245)' type="submit" ><i class='bi bi-trash h4'></i></button>
+                    @endif
                 </form>
             </td>
 

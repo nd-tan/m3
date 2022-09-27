@@ -28,7 +28,7 @@ class OrderPolicy
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Order $order)
+    public function view(User $user)
     {
         return $user->hasPermission('Order_view');
     }
@@ -51,7 +51,7 @@ class OrderPolicy
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Order $order)
+    public function update(User $user)
     {
         //
     }
@@ -63,7 +63,7 @@ class OrderPolicy
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Order $order)
+    public function delete(User $user)
     {
         //
     }
@@ -75,7 +75,7 @@ class OrderPolicy
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Order $order)
+    public function restore(User $user)
     {
         //
     }
@@ -87,7 +87,7 @@ class OrderPolicy
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Order $order)
+    public function forceDelete(User $user)
     {
         //
     }

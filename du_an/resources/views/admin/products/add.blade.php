@@ -14,13 +14,9 @@
 
     }
 </style>
-
 @extends('admin.index')
 @section('content')
-
-
     <main id="main" class="main">
-
         <div class="pagetitle">
             <h1>Sản Phẩm</h1>
             <nav>
@@ -31,7 +27,6 @@
                 </ol>
             </nav>
         </div>
-
         <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data">
             @method('POST')
             @csrf
@@ -39,13 +34,12 @@
                 <label for="inputText" class="col-sm-2 col-form-label">Tên sản phẩm</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                        value="{{ $request->name ?? old('name')  }}">
+                        value="{{ $request->name ?? old('name') }}">
                     @error('name')
                         <label class="text text-danger">{{ $message }}</label>
                     @enderror
                 </div><br>
-
-                <label for="inputText" class="col-sm-2 col-form-label">Danh mục</label>
+                <label for="inputText" class="col-sm-2 col-form-label">Nhà cung cấp</label>
                 <div class="col-sm-10">
                     <select name="supplier" class="select">
                         @foreach ($suppliers as $supplier)
@@ -53,7 +47,6 @@
                         @endforeach
                     </select>
                 </div>
-
                 <label for="inputText" class="col-sm-2 col-form-label">Danh mục</label>
                 <div class="col-sm-10">
                     <select name="category_id" class="select">
@@ -62,7 +55,6 @@
                         @endforeach
                     </select>
                 </div>
-
                 <label for="inputText" class="col-sm-2 col-form-label">Tuổi</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control @error('age') is-invalid @enderror" name="age"
@@ -74,7 +66,7 @@
                 <label for="inputText" class="col-sm-2 col-form-label">Màu sắc</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control @error('color') is-invalid @enderror" name="color"
-                        value="{{$request->color ?? old('color') }}">
+                        value="{{ $request->color ?? old('color') }}">
                     @error('color')
                         <div class="text text-danger">{{ $message }}</div>
                     @enderror
@@ -89,7 +81,7 @@
                 <label for="inputText" class="col-sm-2 col-form-label">Giá</label>
                 <div class="col-sm-10">
                     <input type="number" class="form-control @error('price') is-invalid @enderror" name="price"
-                        value="{{$request->price ?? old('price') }}">
+                        value="{{ $request->price ?? old('price') }}">
                     @error('price')
                         <div class="text text-danger">{{ $message }}</div>
                     @enderror
@@ -97,26 +89,19 @@
                 <label for="inputText" class="col-sm-2 col-form-label">Số lượng</label>
                 <div class="col-sm-10">
                     <input type="number" class="form-control @error('quantity') is-invalid @enderror" name="quantity"
-                        value="{{$request->quantity ?? old('quantity') }}">
+                        value="{{ $request->quantity ?? old('quantity') }}">
                     @error('quantity')
                         <div class="text text-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <label for="inputText" class="col-sm-2 col-form-label">Hình ảnh</label>
                 <div class="col-sm-10">
-                    <input accept="image/*" type='file' id="inputFile" name="inputFile"  /><br>
+                    <input accept="image/*" type='file' id="inputFile" name="inputFile" /><br>
                     @error('inputFile')
                         <div class="text text-danger">{{ $message }}</div>
                     @enderror
                     <br>
-                    <img type="hidden" width="90px" height="90px" id="blah" src="" alt=""  />
-
-                    {{-- <div class="col-sm-10">
-                    <input type="file"
-                           class="form-control-file"
-                           id="inputFile"
-                           name="inputFile"> --}}
-
+                    <img type="hidden" width="90px" height="90px" id="blah" src="" alt="" />
                 </div>
             </div>
             <div class="row mb-3">
@@ -126,10 +111,6 @@
                 </div>
             </div>
             </div>
-
         </form>
-
-
     </main>
-
 @endsection
