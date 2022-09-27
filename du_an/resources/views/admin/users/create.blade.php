@@ -47,8 +47,6 @@
                                                 id="" type="text" placeholder="" name="phone"
                                                 value="{{ old('phone') }}" />
                                             <label for="inputEmail">Phone</label>
-
-
                                         </div>
                                         @error('phone')
                                             <label class="text text-danger">{{ $message }}</label>
@@ -58,7 +56,6 @@
                                                 id="" type="text" placeholder="" name="address"
                                                 value="{{ old('address') }}" />
                                             <label for="inputEmail">Address</label>
-
                                         </div>
                                         @error('address')
                                             <label class="text text-danger">{{ $message }}</label>
@@ -68,7 +65,6 @@
                                                 id="" type="email" placeholder="" name="email"
                                                 value="{{ old('email') }}" />
                                             <label for="inputEmail">Email</label>
-
                                         </div>
                                         @error('email')
                                             <label class="text text-danger">{{ $message }}</label>
@@ -79,7 +75,6 @@
                                                     <input class="form-control @error('password') is-invalid @enderror"
                                                         id="" type="password" placeholder="" name="password" />
                                                     <label for="inputPassword">Password</label>
-
                                                 </div>
                                                 @error('password')
                                                     <label class="text text-danger">{{ $message }}</label>
@@ -92,7 +87,6 @@
                                                         id="inputPasswordConfirm" type="password" placeholder=""
                                                         name="confirmpassword" />
                                                     <label for="inputPasswordConfirm">Confirm Password</label>
-
                                                 </div>
                                                 @error('confirmpassword')
                                                     <label class="text text-danger">{{ $message }}</label>

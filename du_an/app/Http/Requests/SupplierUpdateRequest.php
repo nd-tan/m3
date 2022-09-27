@@ -25,7 +25,7 @@ class SupplierUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required|unique:suppliers',
+            'email' => 'required',
             'address' => 'required',
             'phone' => 'required',
         ];
@@ -37,7 +37,7 @@ class SupplierUpdateRequest extends FormRequest
             'email.required' => 'Email không được để trống!',
             'address.required' => 'Địa chỉ không được để trống!',
             'phone.required' => 'Số điện thoại không được để trống!',
-            'email.unique' => 'Email này đã được đăng ký!',
+            // 'email.unique' => 'Email này đã được đăng ký!',
         ];
     }
 }

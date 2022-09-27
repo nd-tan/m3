@@ -108,7 +108,7 @@ class UserController extends Controller
     {
         $positions=Position::all();
         $item=User::find($id);
-        $this->authorize('update', $item);
+        $this->authorize('update', User::class);
         return view('admin.users.edit', compact('item', 'positions'));
     }
 
@@ -150,7 +150,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         $item=User::findOrFail($id);
-        $this->authorize('delete', $item);
+        $this->authorize('delete', User::class);
         try {
             $item->delete();
             toast('Nhân viên đã được đưa vào thùng rác!','success','top-right');
@@ -170,7 +170,7 @@ class UserController extends Controller
     public function retrieve($id)
     {
         $item=User::withTrashed()->where('id', $id);
-        $this->authorize('restore', $item);
+        $this->authorize('restore', User::class);
         try {
             $item->restore();
             $item=User::find($id);
@@ -185,7 +185,7 @@ class UserController extends Controller
     public function deleted($id)
     {
         $item=User::onlyTrashed()->findOrFail($id);
-        $this->authorize('forceDelete', $item);
+        $this->authorize('forceDelete', User::class);
         try {
             $image = 'public/images_admin/'.$item->image;
             Storage::delete($image);
@@ -231,7 +231,7 @@ class UserController extends Controller
             return redirect()->route('user.info',$item->id);
         }
     }
-    
+
     public function info()
     {
         $item=Auth()->user();

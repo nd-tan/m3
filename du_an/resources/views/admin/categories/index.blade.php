@@ -1,7 +1,6 @@
 @extends('admin.index')
 @section('content')
 <main id="main" class="main">
-
     <div class="pagetitle">
       <h1>Danh Mục</h1>
       <nav>
@@ -29,7 +28,6 @@
             <th scope="row">{{++$key}}</th>
             <td>{{$item->name}}</td>
             <td>
-
                 <form action="{{ route('category.delete', $item->id) }}" method="post" >
                     @method('DELETE')
                     @csrf
@@ -44,15 +42,10 @@
                     @endif
                 </form>
             </td>
-
           </tr>
           @endforeach
-
         </tbody>
       </table>
       {{ $items->onEachSide(5)->links() }}
-
-
-
 </main>
 @endsection

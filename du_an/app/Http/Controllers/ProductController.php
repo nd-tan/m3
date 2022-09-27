@@ -79,11 +79,20 @@ class ProductController extends Controller
         return view('admin.products.detail', compact('item', 'users'));
     }
 
+    public function showOnTrash($id)
+    {
+        $this->authorize('view', Product::class);
+        $users=User::all();
+        $item=Product::withTrashed()->where('id', $id)->get();
+        dd($item);
+        return view('admin.products.detail', compact('item', 'users'));
+    }
+
     public function edit($id)
     {
         $items = Category::all();
         $item=Product::find($id);
-        $this->authorize('update', $item);
+        $this->authorize('update', Product::class);
         return view('admin.products.edit', compact('item', 'items'));
     }
 
@@ -128,7 +137,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $item=Product::findOrFail($id);
-        $this->authorize('delete', $item);
+        $this->authorize('delete', Product::class);
         try {
             $item->delete();
             // $image = 'public/images/'.$item->image;
@@ -150,10 +159,9 @@ class ProductController extends Controller
     public function retrieve($id)
     {
         $item=Product::withTrashed()->where('id', $id);
-        $this->authorize('restore', $item);
+        $this->authorize('restore', Product::class);
         try {
             $item->restore();
-            $item=Product::find($id);
             toast('khôi phục sản phẩm thành công!','success','top-right');
             return redirect()->route('product.index');
         } catch (\Exception $th) {
@@ -164,7 +172,7 @@ class ProductController extends Controller
     public function deleted($id)
     {
         $item=Product::onlyTrashed()->findOrFail($id);
-        $this->authorize('forceDelete', $item);
+        $this->authorize('forceDelete', Product::class);
         try {
             $image = 'public/images/'.$item->image;
             Storage::delete($image);

@@ -14,11 +14,9 @@
 
     }
 </style>
-
 @extends('admin.index')
 @section('content')
     <main id="main" class="main">
-
         <div class="pagetitle">
             <h1>Nhà Cung Cấp</h1>
             <nav>
@@ -29,7 +27,6 @@
                 </ol>
             </nav>
         </div>
-
         <form action="{{ route('supplier.update', $item->id) }}" method="post">
             @method('PUT')
             @csrf
@@ -42,7 +39,6 @@
                         <label class="text text-danger">{{ $message }}</label>
                     @enderror
                 </div><br>
-
                 <label for="inputText" class="col-sm-2 col-form-label">Địa chỉ</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control @error('age') is-invalid @enderror" name="address"
@@ -67,9 +63,7 @@
                     @error('email')
                         <div class="text text-danger">{{ $message }}</div>
                     @enderror
-
                 </div>
-
             </div>
             <div class="row mb-3">
                 <label class="col-sm-2 col-form-label"></label>
@@ -78,9 +72,6 @@
                 </div>
             </div>
             </div>
-
         </form>
-
-
     </main>
 @endsection

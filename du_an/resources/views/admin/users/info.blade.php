@@ -1,7 +1,6 @@
 @extends('admin.index')
 @section('content')
 <main id="main" class="main">
-
     <div class="pagetitle">
       <h1>Chi tiết nhân viên</h1>
       <nav>

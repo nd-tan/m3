@@ -134,7 +134,7 @@
       </li><!-- End Forms Nav -->
       @endif
       <li class="nav-item">
-          @if(Auth::user()->hasPermission('Supplier_viewAny'))
+          @if(Auth::user()->hasPermission('Customer_viewAny'))
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-layout-text-window-reverse"></i><span>Khách Hàng</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>

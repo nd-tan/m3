@@ -1,7 +1,6 @@
 @extends('admin.index')
 @section('content')
 <main id="main" class="main">
-
     <div class="pagetitle">
       <h1>Nhân Viên</h1>
       <nav>
@@ -35,7 +34,6 @@
                 <img src="{{ asset('storage/images_admin/' . $item->image) }}" alt=""width='120px' height="100px">
             </td>
             <td>
-
                 <form action="{{route('user.deleted',$item->id)}}" method="post">
                     @method('DELETE')
                     @csrf
@@ -50,15 +48,10 @@
                     @endif
                 </form>
             </td>
-
           </tr>
           @endforeach
-
         </tbody>
       </table>
       {{ $items->onEachSide(5)->links() }}
-
-
-
 </main>
 @endsection

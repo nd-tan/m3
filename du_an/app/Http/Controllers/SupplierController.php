@@ -48,7 +48,7 @@ class SupplierController extends Controller
     public function edit($id)
     {
         $item=Supplier::find($id);
-        $this->authorize('update', $item);
+        $this->authorize('update', Supplier::class);
         return view('admin.suppliers.edit',compact('item'));
     }
 
@@ -59,6 +59,19 @@ class SupplierController extends Controller
         $item->email=$request->email;
         $item->address=$request->address;
         $item->phone=$request->phone;
+        $values=Supplier::all();
+        foreach($values as $value)
+        {
+            if($value->id==$id)
+            {
+                continue;
+            }
+            if($value->email==$request->email)
+            {
+                toast('Email này đã được sủ dụng!','error','top-right');
+                return redirect()->route('supplier.edit',$id);
+            }
+        }
         try {
             $item->save();
             toast('Sửa nhà cung cấp thành công!','success','top-right');
@@ -72,7 +85,7 @@ class SupplierController extends Controller
     public function destroy($id)
     {
         $item=Supplier::find($id);
-        $this->authorize('delete', $item);
+        $this->authorize('delete', Supplier::class);
         try {
             $item->delete();
             toast('Nhà cung cấp đã được đưa vào thung rác!','success','top-right');
@@ -92,10 +105,9 @@ class SupplierController extends Controller
     public function retrieve($id)
     {
         $item=Supplier::withTrashed()->where('id', $id);
-        $this->authorize('restore', $item);
+        $this->authorize('restore', Supplier::class);
         try {
             $item->restore();
-            $item=Supplier::find($id);
             toast('khôi phục nhà cung cấp thành công!','success','top-right');
             return redirect()->route('supplier.index');
         } catch (\Exception $th) {
@@ -103,11 +115,11 @@ class SupplierController extends Controller
             return redirect()->route('supplier.softdelete');
         }
     }
-    
+
     public function deleted($id)
     {
         $item=Supplier::onlyTrashed()->findOrFail($id);
-        $this->authorize('forceDelete', $item);
+        $this->authorize('forceDelete', Supplier::class);
         try {
             $item->forceDelete();
             toast('Xóa nhà cung cấp thành công!','success','top-right');

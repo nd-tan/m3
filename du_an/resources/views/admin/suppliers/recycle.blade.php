@@ -1,7 +1,6 @@
 @extends('admin.index')
 @section('content')
 <main id="main" class="main">
-
     <div class="pagetitle">
       <h1>Nhà Cung Cấp</h1>
       <nav>
@@ -22,7 +21,6 @@
             <th width='10%'>Số Điện Thoại</th>
             <th width='10%'>Email</th>
             <th width='10%'>Tùy Chọn</th>
-
           </tr>
         </thead>
         <tbody>
@@ -34,7 +32,6 @@
             <td>{{$item->phone}}</td>
             <td>{{$item->email}}</td>
             <td>
-
                 <form action="{{route('supplier.deleted',$item->id)}}" method="post">
                     @method('DELETE')
                     @csrf
@@ -47,10 +44,8 @@
                     @endif
                 </form>
             </td>
-
           </tr>
           @endforeach
-
         </tbody>
       </table>
       {{ $items->onEachSide(5)->links() }}

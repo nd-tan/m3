@@ -17,10 +17,7 @@
 
 @extends('admin.index')
 @section('content')
-
-
     <main id="main" class="main">
-
         <div class="pagetitle">
             <h1>Nhân Viên</h1>
             <nav>
@@ -31,7 +28,6 @@
                 </ol>
             </nav>
         </div>
-
         <form action="{{ route('user.update',$item->id)}}" method="post" enctype="multipart/form-data">
             @method('PUT')
             @csrf
@@ -44,7 +40,6 @@
                         <label class="text text-danger">{{ $message }}</label>
                     @enderror
                 </div><br>
-
                 <label for="inputText" class="col-sm-2 col-form-label">Chức vụ</label>
                 <div class="col-sm-10">
                     <select name="position" class="select">
@@ -53,7 +48,6 @@
                         @endforeach
                     </select>
                 </div>
-
                 <label for="inputText" class="col-sm-2 col-form-label">Địa chỉ</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control @error('age') is-invalid @enderror" name="address"
@@ -98,7 +92,6 @@
                     <div class="text text-danger">{{ $message }}</div>
                 @enderror
                 </div><br>
-
                 <label for="inputText" class="col-sm-2 col-form-label">Hình ảnh</label>
                 <div class="col-sm-10">
                     <input accept="image/*" type='file' id="inputFile" name="inputFile"  /><br>
@@ -107,7 +100,6 @@
                     @enderror
                     <br>
                     <img type="hidden" width="90px" height="90px" id="blah1" src="{{ asset('storage/images_admin/' . $item->image) ?? asset('storage/images_admin/'.$request->inputFile) }}" alt=""  />
-
                 </div>
             </div>
             <div class="row mb-3">
@@ -117,10 +109,6 @@
                 </div>
             </div>
             </div>
-
         </form>
-
-
     </main>
-
 @endsection

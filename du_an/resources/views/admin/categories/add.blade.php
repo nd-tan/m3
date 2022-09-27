@@ -1,7 +1,6 @@
 @extends('admin.index')
 @section('content')
     <main id="main" class="main">
-
         <div class="pagetitle">
             <h1>Danh Mục</h1>
             <nav>
@@ -12,7 +11,6 @@
                 </ol>
             </nav>
         </div>
-
         <form action="{{ route('category.store') }}" method="post">
             @method('POST')
             @csrf
@@ -25,9 +23,7 @@
                         <div class="text text-danger">{{ $message }}</div>
                     @enderror
                 </div><br>
-
                 <div class="col-sm-10">
-                    {{-- <input type="text" class="form-control"> --}}
                 </div><br>
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label"></label>
@@ -36,9 +32,6 @@
                     </div>
                 </div>
             </div>
-
         </form>
-
-
     </main>
 @endsection

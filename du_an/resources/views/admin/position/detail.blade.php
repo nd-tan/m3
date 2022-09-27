@@ -55,8 +55,9 @@
                             </div>
                         </div>
                         <div class="form-actions">
-                            <button  class="btn btn-primary ml-auto mr-2"
-                                type="submit">Lưu<noscript></noscript> </button>
+                            @if (Auth::user()->hasPermission('Position_update'))
+                            <button  class="btn btn-primary ml-auto mr-2" type="submit">Lưu</button>
+                            @endif
                             <a style="float: right;" class="btn btn-danger float-right " href="{{route('position.index')}}">Hủy</a>
                         </div>
                     </div>
