@@ -13,6 +13,7 @@ class Position extends Model
     use HasFactory;
     use Notifiable,
     SoftDeletes;// add soft delete
+    protected $fillable = ['name'];
     public function users()
     {
         return $this->hasMany(User::class, 'position_id', 'id');

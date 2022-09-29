@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::prefix('/')->middleware(['auth', 'revalidate'])->group(function(){
+// Route::prefix('/')->middleware(['auth', 'revalidate'])->group(function(){
+    Route::prefix('/')->group(function(){
 
 //////////trang chu
 Route::get('/', function () {
@@ -36,7 +37,7 @@ Route::prefix('categories')->group(function(){
     ////xóa
     Route::delete('/deleted/{id}',[CategoryController::class,'deleted'])->name('category.deleted');
     /////xóa mềm
-    Route::delete('/delete/{id}',[CategoryController::class,'destroy'])->name('category.delete');
+    Route::delete('/destroy/{id}',[CategoryController::class,'destroy'])->name('category.delete');
     Route::get('/softdelete',[CategoryController::class,'softdelete'])->name('category.softdelete');
     Route::get('/restore/{id}',[CategoryController::class,'retrieve'])->name('category.restore');
 });
