@@ -41,10 +41,6 @@
                                             <form action="{{ route('product.deleted', $item->id) }}" method="post">
                                                 @method('DELETE')
                                                 @csrf
-                                                @if(Auth::user()->hasPermission('Product_view'))
-                                                <a style='color:rgb(52,136,245)' class='btn' href="{{ route('product.showOnTrash', $item->id) }}"><i
-                                                        class='bi bi-eye h4'></i></a>
-                                                @endif
                                                 @if(Auth::user()->hasPermission('Product_restore'))
                                                 <a onclick="return confirm('Bạn có chắc muốn khôi phục sản phẩm này không?');" style='color:rgb(52,136,245)' class='btn' href="{{ route('product.restore', $item->id) }}"><i
                                                         class='bi bi-arrow-clockwise h4'></i></a>

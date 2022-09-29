@@ -58,8 +58,6 @@ Route::prefix('products')->group(function(){
     Route::get('/restore/{id}',[ProductController::class,'retrieve'])->name('product.restore');
     ////xem chi tiết
     Route::get('/show/{id}',[ProductController::class,'show'])->name('product.show');
-    Route::get('/showOnTrash/{id}',[ProductController::class,'showOnTrash'])->name('product.showOnTrash');
-
 
 });
 

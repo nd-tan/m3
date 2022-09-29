@@ -79,15 +79,6 @@ class ProductController extends Controller
         return view('admin.products.detail', compact('item', 'users'));
     }
 
-    public function showOnTrash($id)
-    {
-        $this->authorize('view', Product::class);
-        $users=User::all();
-        $item=Product::withTrashed()->where('id', $id)->get();
-        dd($item);
-        return view('admin.products.detail', compact('item', 'users'));
-    }
-
     public function edit($id)
     {
         $items = Category::all();

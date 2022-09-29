@@ -37,9 +37,9 @@
                 <form action="{{route('user.deleted',$item->id)}}" method="post">
                     @method('DELETE')
                     @csrf
-                    @if(Auth::user()->hasPermission('User_view'))
-                    <a style='color:rgb(52,136,245)' class='btn' href="{{route('user.show',$item->id)}}"><i class='bi bi-eye h4'></i></a>
-                    @endif
+                    {{-- @if(Auth::user()->hasPermission('User_view')) --}}
+                    {{-- <a style='color:rgb(52,136,245)' class='btn' href="{{route('user.show',$item->id)}}"><i class='bi bi-eye h4'></i></a> --}}
+                    {{-- @endif --}}
                     @if(Auth::user()->hasPermission('User_restore'))
                     <a onclick="return confirm('Bạn có chắc muốn khôi phục nhân viên này không?');" style='color:rgb(52,136,245)' class='btn' href="{{route('user.restore',$item->id)}}"><i class='bi bi-arrow-clockwise h4'></i></a>
                     @endif
