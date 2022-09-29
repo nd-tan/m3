@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Supplier;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -129,13 +130,20 @@ class ProductController extends Controller
     {
         $item=Product::findOrFail($id);
         $this->authorize('delete', Product::class);
-        try {
-            $item->delete();
-            // $image = 'public/images/'.$item->image;
-            // Storage::delete($image);
-            toast('Sản phẩm đã được đưa vào thùng rác!','success','top-right');
-            return redirect()->route('product.index');
-        } catch (\Exception $th) {
+        $order=DB::table('products')->join('orderdetail','products.id','=','orderdetail.product_id')
+        ->select(DB::raw('count(orderdetail.product_id), products.id'))->groupBy('products.id')
+        ->where('products.id','=',$id)->get();
+        if(empty($order->toArray()))
+        {
+            try {
+                $item->delete();
+                toast('Sản phẩm đã được đưa vào thùng rác!','success','top-right');
+                return redirect()->route('product.index');
+            } catch (\Exception $th) {
+                toast('Sản phẩm chưa được đưa vào thùng rác!','error','top-right');
+                return redirect()->route('product.index');
+            }
+        }else{
             toast('Sản phẩm chưa được đưa vào thùng rác!','error','top-right');
             return redirect()->route('product.index');
         }

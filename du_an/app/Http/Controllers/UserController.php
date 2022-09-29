@@ -151,11 +151,26 @@ class UserController extends Controller
     {
         $item=User::findOrFail($id);
         $this->authorize('delete', User::class);
-        try {
-            $item->delete();
-            toast('Nhân viên đã được đưa vào thùng rác!','success','top-right');
-            return redirect()->route('user.index');
-        } catch (\Exception $th) {
+        
+        $product=DB::table('users')->join('products','users.id','=','products.user_id')
+        ->select(DB::raw('count(products.user_id), users.id'))
+        ->groupBy('users.id')->where('users.id','=',$id)->get();
+
+        $product_edit=DB::table('users')->join('products','users.id','=','products.user_id_edit')
+        ->select(DB::raw('count(products.user_id_edit), users.id'))
+        ->groupBy('users.id')->where('users.id','=',$id)->get();
+
+        if(empty($product->toArray()) && empty($product_edit->toArray()))
+        {
+            try {
+                $item->delete();
+                toast('Nhân viên đã được đưa vào thùng rác!','success','top-right');
+                return redirect()->route('user.index');
+            } catch (\Exception $th) {
+                toast('Nhân viên chưa được đưa vào thùng rác!','error','top-right');
+                return redirect()->route('user.index');
+            }
+        }else{
             toast('Nhân viên chưa được đưa vào thùng rác!','error','top-right');
             return redirect()->route('user.index');
         }

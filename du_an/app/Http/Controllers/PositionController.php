@@ -9,6 +9,7 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class PositionController extends Controller
@@ -19,7 +20,7 @@ class PositionController extends Controller
         $items=Position::paginate(5);
         return view('admin.position.index',compact('items'));
     }
-    
+
     public function add()
     {
         $this->authorize('create', Position::class);
@@ -65,11 +66,25 @@ class PositionController extends Controller
     {
         $item=Position::find($id);
         $this->authorize('delete', Position::class);
-        try {
-            $item->delete();
-            toast('Chức vụ đã được đưa vào thùng rác!','success','top-right');
-            return redirect()->route('position.index');
-        } catch (\Exception $th) {
+        $position=DB::table('positions')->join('position_role','positions.id','=','position_role.position_id')
+        ->select(DB::raw('count(position_role.position_id), positions.id'))
+        ->groupBy('positions.id')->where('positions.id','=',$id)->get();
+
+        $user=DB::table('positions')->join('users','positions.id','=','users.position_id')
+        ->select(DB::raw('count(users.position_id), positions.id'))
+        ->groupBy('positions.id')->where('positions.id','=',$id)->get();
+        
+        if(empty($position->toArray()) && empty($user->toArray()))
+        {
+            try {
+                $item->delete();
+                toast('Chức vụ đã được đưa vào thùng rác!','success','top-right');
+                return redirect()->route('position.index');
+            } catch (\Exception $th) {
+                toast('Chức vụ chưa được đưa vào thùng rác!','error','top-right');
+                return redirect()->route('position.index');
+            }
+        }else{
             toast('Chức vụ chưa được đưa vào thùng rác!','error','top-right');
             return redirect()->route('position.index');
         }
@@ -102,7 +117,8 @@ class PositionController extends Controller
             $item->forceDelete();
             toast('Xóa chức vụ thành công!','success','top-right');
             return redirect()->route('position.softdelete');
-        } catch (\Exception $th) {
+        } catch (\Exception $e) {
+            Log::error('message:'. $e->getMessage());
             toast('Xóa chức vụ không thành công!','error','top-right');
             return redirect()->route('position.softdelete');
         }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -62,13 +63,22 @@ class CategoryController extends Controller
     {
         $item=Category::findOrFail($id);
         $this->authorize('delete', Category::class);
-        try {
-            $item->delete();
-            toast('Danh mục đã được đưa vào thùng rác!','success','top-right');
-            return redirect()->route('category.index');
-        } catch (\Exception $th) {
+        $value=DB::table('categories')->join('products','categories.id','=','products.category_id')
+        ->select(DB::raw('count(products.id), categories.id'))
+        ->groupBy('categories.id')->where('categories.id','=',$id)->get();
+        if(empty($value->toArray()))
+        {
+            try {
+                $item->delete();
+                toast('Danh mục đã được đưa vào thùng rác!','success','top-right');
+                return redirect()->route('category.index');
+            } catch (\Exception $th) {
+                toast('Danh mục chưa được đưa vào thùng rác!','error','top-right');
+                return redirect()->route('category.index');
+            }
+        }else{
             toast('Danh mục chưa được đưa vào thùng rác!','error','top-right');
-            return redirect()->route('category.index');
+                return redirect()->route('category.index');
         }
     }
 

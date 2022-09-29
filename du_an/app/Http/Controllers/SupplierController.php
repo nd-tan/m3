@@ -6,6 +6,7 @@ use App\Http\Requests\SupplierCreateRequest;
 use App\Http\Requests\SupplierUpdateRequest;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class SupplierController extends Controller
@@ -86,11 +87,20 @@ class SupplierController extends Controller
     {
         $item=Supplier::find($id);
         $this->authorize('delete', Supplier::class);
-        try {
-            $item->delete();
-            toast('Nhà cung cấp đã được đưa vào thung rác!','success','top-right');
-            return redirect()->route('supplier.index');
-        } catch (\Exception $th) {
+        $product=DB::table('suppliers')->join('products','suppliers.id','=','products.supplier_id')
+        ->select(DB::raw('count(products.supplier_id), suppliers.id'))
+        ->groupBy('suppliers.id')->where('suppliers.id','=',$id)->get();
+        if(empty($product->toArray()))
+        {
+            try {
+                $item->delete();
+                toast('Nhà cung cấp đã được đưa vào thung rác!','success','top-right');
+                return redirect()->route('supplier.index');
+            } catch (\Exception $th) {
+                toast('Nhà cung cấp chưa được đưa vào thung rác!','error','top-right');
+                return redirect()->route('supplier.index');
+            }
+        }else{
             toast('Nhà cung cấp chưa được đưa vào thung rác!','error','top-right');
             return redirect()->route('supplier.index');
         }

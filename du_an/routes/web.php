@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::prefix('/')->middleware(['auth', 'revalidate'])->group(function(){
-    Route::prefix('/')->group(function(){
+Route::prefix('/')->middleware(['auth', 'revalidate'])->group(function(){
+    // Route::prefix('/')->group(function(){
 
 //////////trang chu
 Route::get('/', function () {
