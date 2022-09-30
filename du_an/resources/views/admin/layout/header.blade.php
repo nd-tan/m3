@@ -196,10 +196,10 @@
             {{-- <li>
               <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                 <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
+                <span>Quên mật khẩu</span>
               </a>
-            </li>
-            <li>
+            </li> --}}
+            {{-- <li>
               <hr class="dropdown-divider">
             </li>
 
