@@ -17,4 +17,11 @@ class Supplier extends Model
     {
         return $this->hasMany(Product::class, 'supplier_id', 'id');
     }
+    public function scopeSearch($query)
+    {
+        if ($key = request()->key) {
+            $query = $query->where('name', 'like', '%' . $key . '%');
+        }
+        return $query;
+    }
 }

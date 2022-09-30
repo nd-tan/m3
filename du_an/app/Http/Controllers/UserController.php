@@ -22,7 +22,7 @@ class UserController extends Controller
     public function index()
     {
         $this->authorize('viewAny', User::class);
-        $items = User::paginate(5);
+        $items = User::search()->paginate(5);
         // dd($items);
         return view('admin.users.index', compact('items'));
     }
@@ -151,7 +151,7 @@ class UserController extends Controller
     {
         $item=User::findOrFail($id);
         $this->authorize('delete', User::class);
-        
+
         $product=DB::table('users')->join('products','users.id','=','products.user_id')
         ->select(DB::raw('count(products.user_id), users.id'))
         ->groupBy('users.id')->where('users.id','=',$id)->get();
@@ -178,7 +178,7 @@ class UserController extends Controller
 
     public function softdelete()
     {
-        $items=User::onlyTrashed()->paginate(5);
+        $items=User::search()->onlyTrashed()->paginate(5);
         return view('admin.users.recycle', compact('items'));
     }
 
@@ -270,6 +270,22 @@ class UserController extends Controller
         }else{
             toast('Mật khẩu nhập lại không đúng','error','top-right');
             return redirect()->route('user.info');
+        }
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->search;
+        if($search !='')
+        {
+            $category=DB::table('categories')->select('*')->where('categories.name','LIKE','%$search%')->get();
+            // dd($search);
+            // dd($category->toArray());
+            dd($category);
+
+        }else{
+            toast('Bận cần nhập từ khóa để tìm kiếm','error','top-right');
+            return redirect()->route('index');
         }
     }
 }

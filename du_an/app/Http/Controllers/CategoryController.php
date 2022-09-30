@@ -14,7 +14,7 @@ class CategoryController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Category::class);
-        $items=Category::paginate(5);
+        $items=Category::search()->paginate(5);
         return view('admin.categories.index',compact('items'));
     }
 
@@ -84,7 +84,7 @@ class CategoryController extends Controller
 
     public function softdelete()
     {
-        $items=Category::onlyTrashed()->paginate(5);
+        $items=Category::search()->onlyTrashed()->paginate(5);
         return view('admin.categories.recycle', compact('items'));
     }
 

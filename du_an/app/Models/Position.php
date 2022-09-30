@@ -22,4 +22,11 @@ class Position extends Model
     {
         return $this->belongsToMany(Role::class,'position_role','position_id','role_id');
     }
+    public function scopeSearch($query)
+    {
+        if ($key = request()->key) {
+            $query = $query->where('name', 'like', '%' . $key . '%');
+        }
+        return $query;
+    }
 }

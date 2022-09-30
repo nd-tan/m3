@@ -32,6 +32,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Product::class, 'user_id', 'id');
     }
-
+    public function scopeSearch($query)
+    {
+        if ($key = request()->key) {
+            $query = $query->where('name', 'like', '%' . $key . '%');
+        }
+        return $query;
+    }
 
 }

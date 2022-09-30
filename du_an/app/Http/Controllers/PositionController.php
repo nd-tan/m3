@@ -17,7 +17,7 @@ class PositionController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Position::class);
-        $items=Position::paginate(5);
+        $items=Position::search()->paginate(5);
         return view('admin.position.index',compact('items'));
     }
 
@@ -73,7 +73,7 @@ class PositionController extends Controller
         $user=DB::table('positions')->join('users','positions.id','=','users.position_id')
         ->select(DB::raw('count(users.position_id), positions.id'))
         ->groupBy('positions.id')->where('positions.id','=',$id)->get();
-        
+
         if(empty($position->toArray()) && empty($user->toArray()))
         {
             try {
@@ -92,7 +92,7 @@ class PositionController extends Controller
 
     public function softdelete()
     {
-        $items=Position::onlyTrashed()->paginate(5);
+        $items=Position::search()->onlyTrashed()->paginate(5);
         return view('admin.position.recycle', compact('items'));
     }
 

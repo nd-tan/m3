@@ -30,5 +30,14 @@ class Product extends Model
     {
         return $this->belongsTo(Supplier::class, 'supplier_id', 'id');
     }
+    public function scopeSearch($query)
+    {
+        if ($key = request()->key) {
+            $query = $query->where('name', 'like', '%' . $key . '%')->orwhere('age', 'like', '%' . $key . '%')
+            ->orwhere('color', 'like', '%' . $key . '%')->orwhere('gender', 'like', '%' . $key . '%')
+            ->orwhere('price', 'like', '%' . $key . '%')->orwhere('quantity', 'like', '%' . $key . '%');
+        }
+        return $query;
+    }
 
 }

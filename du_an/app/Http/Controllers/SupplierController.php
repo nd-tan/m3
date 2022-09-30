@@ -14,7 +14,7 @@ class SupplierController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Supplier::class);
-        $items=Supplier::paginate(5);
+        $items=Supplier::search()->paginate(5);
         return view('admin.suppliers.index', compact('items'));
     }
 
@@ -108,7 +108,7 @@ class SupplierController extends Controller
 
     public function softdelete()
     {
-        $items=Supplier::onlyTrashed()->paginate(5);
+        $items=Supplier::search()->onlyTrashed()->paginate(5);
         return view('admin.suppliers.recycle', compact('items'));
     }
 

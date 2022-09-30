@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::prefix('/')->middleware(['auth', 'revalidate'])->group(function(){
-    // Route::prefix('/')->group(function(){
 
 //////////trang chu
 Route::get('/', function () {
@@ -123,6 +122,7 @@ Route::prefix('user')->group(function(){
     Route::post('/updatepassword',[UserController::class,'change_password'])->name('user.updatepassword');
     Route::get('/info',[UserController::class,'info'])->name('user.info');
 
+    Route::post('/search',[UserController::class,'search'])->name('user.search');
 });
 
 });

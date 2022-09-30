@@ -18,7 +18,7 @@ class ProductController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Product::class);
-        $items = Product::paginate(3);
+        $items = Product::search()->paginate(3);
         $suppliers=Supplier::all();
         return view('admin.products.index', compact('items','suppliers'));
     }
@@ -151,7 +151,7 @@ class ProductController extends Controller
 
     public function softdelete()
     {
-        $items=Product::onlyTrashed()->paginate(5);
+        $items=Product::search()->onlyTrashed()->paginate(5);
         return view('admin.products.recycle', compact('items'));
     }
 
