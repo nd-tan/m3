@@ -25,12 +25,12 @@
     <table class="table table-bordered border-primary" style=" text-align: center; width:100%">
         <thead>
           <tr>
-            <th width="10%">STT</th>
+            <th width="5%">STT</th>
             <th width="10%">Tên Nhân viên</th>
             <th width="10%">Email</th>
             <th width="10%">Chức vụ</th>
             <th width="10%">Hình ảnh</th>
-            <th width="20%">Tùy Chọn</th>
+            <th width="15%">Tùy Chọn</th>
           </tr>
         </thead>
         <tbody>
@@ -60,7 +60,6 @@
             </td>
           </tr>
           @endforeach
-
         </tbody>
       </table>
       {{ $items->onEachSide(5)->links() }}

@@ -23,7 +23,7 @@
                         </div><br>
                         <div class="form-group">
                             <h4>Quyền hạn</h4>
-                            <label class="form-check form-switch ">{{ __('CheckAll') }}
+                            <label class="form-check form-switch">{{ __('CheckAll') }}
                                 <input type="checkbox" id="checkAll" class="form-check-input"
                                     value="Quyền hạn">
                             </label>
