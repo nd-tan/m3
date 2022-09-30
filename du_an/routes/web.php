@@ -107,7 +107,6 @@ Route::prefix('user')->group(function(){
     Route::get('/show/{id}',[UserController::class,'show'])->name('user.show');
     Route::get('/register',[UserController::class,'register'])->name('user.register');
     Route::post('/checkregister',[UserController::class,'checkregister'])->name('user.checkregister');
-
     // // ///edit
     Route::get('/edit/{id}',[UserController::class,'edit'])->name('user.edit');
     Route::put('/update/{id}',[UserController::class,'update'])->name('user.update');
@@ -121,8 +120,6 @@ Route::prefix('user')->group(function(){
     Route::post('/updateinfo/{id}',[UserController::class,'update_info'])->name('user.update_info');
     Route::post('/updatepassword',[UserController::class,'change_password'])->name('user.updatepassword');
     Route::get('/info',[UserController::class,'info'])->name('user.info');
-
-    Route::post('/search',[UserController::class,'search'])->name('user.search');
 });
 
 });

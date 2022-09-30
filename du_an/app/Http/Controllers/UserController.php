@@ -6,6 +6,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\Userpassword;
 use App\Http\Requests\UserupdateRequest;
+use App\Jobs\SendEmail;
 use App\Models\Position;
 use App\Models\Supplier;
 use App\Models\User;
@@ -261,6 +262,12 @@ class UserController extends Controller
                 $item=User::find(Auth()->user()->id);
                 $item->password= bcrypt($request->newpassword);
                 $item->save();
+                $data=[
+                    'type'=> 'Chào '.$item->name.',',
+                    'task'=>'Bạn',
+                    'content'=>'đã thay đổi mật khẩu thành công!'
+                ];
+                SendEmail::dispatch($data)->delay(now()->addMinute(1));
                 toast('Thay đổi mật khẩu thành công!','success','top-right');
                 return redirect()->route('user.info');
             }else{
@@ -270,22 +277,6 @@ class UserController extends Controller
         }else{
             toast('Mật khẩu nhập lại không đúng','error','top-right');
             return redirect()->route('user.info');
-        }
-    }
-
-    public function search(Request $request)
-    {
-        $search = $request->search;
-        if($search !='')
-        {
-            $category=DB::table('categories')->select('*')->where('categories.name','LIKE','%$search%')->get();
-            // dd($search);
-            // dd($category->toArray());
-            dd($category);
-
-        }else{
-            toast('Bận cần nhập từ khóa để tìm kiếm','error','top-right');
-            return redirect()->route('index');
         }
     }
 }
