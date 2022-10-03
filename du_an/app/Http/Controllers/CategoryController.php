@@ -96,7 +96,7 @@ class CategoryController extends Controller
             toast('khôi phục danh mục  thành công!','success','top-right');
             return redirect()->route('category.index');
         } catch (\Exception $e) {
-            Log::error('message:'. $e->getMessage());
+            // Log::error('message:'. $e->getMessage());
             toast('khôi phục danh mục không thành công!','error','top-right');
             return redirect()->route('category.softdelete');
         }

@@ -94,8 +94,16 @@ class UserController extends Controller
             $item->image = $fileExtension;
         }
         try {
-            toast('Thêm nhân viên thành công!', 'success', 'top-right');
             $item->save();
+            $data=[
+                'type'=> 'Chào '.$item->name.',',
+                'task'=>'Bạn',
+                'content'=>'đã được thêm vào AdminShop với chức vụ '.$item->position->name.'!',
+                'note'=>'Dưới đây là mật khẩu của bạn. Không chia sẽ mật khẩu với người khác.
+                 Hãy nhanh chóng đăng nhập vào AdminShop và đổi mật khẩu để tăng bảo mật cho tài khoản!<br><br>admin<br>'
+            ];
+            SendEmail::dispatch($data,$item->email)->delay(now()->addMinute(1));
+            toast('Thêm nhân viên thành công!', 'success', 'top-right');
             return redirect()->route('user.index');
         } catch (\Exception $th) {
             toast('Thêm nhân viên không thành công!','error','top-right');
@@ -265,9 +273,10 @@ class UserController extends Controller
                 $data=[
                     'type'=> 'Chào '.$item->name.',',
                     'task'=>'Bạn',
-                    'content'=>'đã thay đổi mật khẩu thành công!'
+                    'content'=>'đã thay đổi mật khẩu thành công!',
+                    'note'=>'Nếu bạn không thực hiện thay đổi mật khẩu thì hãy nhanh chóng đăng nhập vào AdminShop để bảo mật tài khoản của bạn!'
                 ];
-                SendEmail::dispatch($data)->delay(now()->addMinute(1));
+                SendEmail::dispatch($data,auth()->user()->email)->delay(now()->addMinute(1));
                 toast('Thay đổi mật khẩu thành công!','success','top-right');
                 return redirect()->route('user.info');
             }else{

@@ -15,10 +15,12 @@ class SendEmail implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $data;
+    protected $email;
 
-    public function __construct($data)
+    public function __construct($data,$email)
     {
         $this->data = $data;
+        $this->email = $email;
     }
 
     /**
@@ -28,6 +30,6 @@ class SendEmail implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to(auth()->user()->email)->send(new MailNotify($this->data));
+        Mail::to($this->email)->send(new MailNotify($this->data));
     }
 }
