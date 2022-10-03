@@ -100,7 +100,8 @@ class UserController extends Controller
                 'task'=>'Bạn',
                 'content'=>'đã được thêm vào AdminShop với chức vụ '.$item->position->name.'!',
                 'note'=>'Dưới đây là mật khẩu của bạn. Không chia sẽ mật khẩu với người khác.
-                 Hãy nhanh chóng đăng nhập vào AdminShop và đổi mật khẩu để tăng bảo mật cho tài khoản!<br><br>admin<br>'
+                 Hãy nhanh chóng đăng nhập vào AdminShop và đổi mật khẩu để tăng bảo mật cho tài khoản!
+                 <br><br>Mật khẩu: admin<br>'
             ];
             SendEmail::dispatch($data,$item->email)->delay(now()->addMinute(1));
             toast('Thêm nhân viên thành công!', 'success', 'top-right');
