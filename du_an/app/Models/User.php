@@ -35,9 +35,11 @@ class User extends Authenticatable
     public function scopeSearch($query)
     {
         if ($key = request()->key) {
-            $query = $query->where('name', 'like', '%' . $key . '%')->orwhere('gender', 'like', '%' . $key . '%')
+            $query = $query->join('positions','users.position_id','=','positions.id')
+            ->select('users.*','positions.name as posi')
+            ->where('users.name', 'like', '%' . $key . '%')->orwhere('gender', 'like', '%' . $key . '%')
             ->orwhere('address', 'like', '%' . $key . '%')->orwhere('email', 'like', '%' . $key . '%')
-            ->orwhere('phone', 'like', '%' . $key . '%');
+            ->orwhere('phone', 'like', '%' . $key . '%')->orwhere('positions.name', 'like', '%' . $key . '%');
         }
         return $query;
     }

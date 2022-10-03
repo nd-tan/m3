@@ -14,14 +14,14 @@
     <a class='btn btn' style='color:rgb(52,136,245)' href="{{route('category.add')}}">Thêm danh mục</a>
     @endif
     <a class='btn btn' style='color:rgb(52,136,245)' href="{{route('category.softdelete')}}">Thùng rác</a>
-        <form action="" id="form-search" class="form-inline d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+        {{-- <form action="" id="form-search" class="form-inline d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="form-group">
                 <input  class="form-control" name="key" placeholder="search by name...">
                 <button  type="submit" class="btn btn-primary">
                     <i class="bi bi-search"></i>
                 </button>
             </div>
-        </form>
+        </form> --}}
     <table class="table table-bordered border-primary" style=" text-align: center">
         <thead>
           <tr>

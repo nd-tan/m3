@@ -12,7 +12,7 @@
             </nav>
         </div>
         <a class='btn btn' style='color:rgb(52,136,245)' href="{{ route('product.index') }}">Danh sách sản phẩm</a>
-        <form action="" id="form-search"
+        {{-- <form action="" id="form-search"
             class="form-inline d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="form-group">
                 <input class="form-control" name="key" placeholder="search by name...">
@@ -20,7 +20,7 @@
                     <i class="bi bi-search"></i>
                 </button>
             </div>
-        </form>
+        </form> --}}
         <table class="table table-bordered border-primary" style=" text-align: center; width: 115%;">
             <thead>
                 <tr>

@@ -33,9 +33,14 @@ class Product extends Model
     public function scopeSearch($query)
     {
         if ($key = request()->key) {
-            $query = $query->where('name', 'like', '%' . $key . '%')->orwhere('age', 'like', '%' . $key . '%')
+            $query = $query->join('categories', 'products.category_id','=','categories.id')
+            ->join('suppliers','products.supplier_id','=','suppliers.id')
+            ->select('products.*', 'categories.name as cate', 'suppliers.name as supli')->where('products.name', 'like', '%' . $key . '%')
+            ->orwhere('age', 'like', '%' . $key . '%')
             ->orwhere('color', 'like', '%' . $key . '%')->orwhere('gender', 'like', '%' . $key . '%')
-            ->orwhere('price', 'like', '%' . $key . '%')->orwhere('quantity', 'like', '%' . $key . '%');
+            ->orwhere('price', 'like', '%' . $key . '%')->orwhere('quantity', 'like', '%' . $key . '%')
+            ->orwhere('categories.name', 'like', '%' . $key . '%')
+            ->orwhere('suppliers.name', 'like', '%' . $key . '%');
         }
         return $query;
     }

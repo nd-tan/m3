@@ -9,10 +9,10 @@
     </div><!-- End Logo -->
 
     <div class="search-bar">
-      <form class="search-form d-flex align-items-center" id="key" method="post" action="#">
-        @method('POST')
-        @csrf
-        <input type="text" name="search" placeholder="Search" title="Enter search keyword">
+      <form class="search-form d-flex align-items-center" id="key" action="">
+        {{-- @method('POST')
+        @csrf --}}
+        <input type="text" name="key" placeholder="Search" title="Enter search keyword">
         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
       </form>
     </div><!-- End Search Bar -->

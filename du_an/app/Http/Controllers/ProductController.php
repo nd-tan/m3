@@ -19,6 +19,7 @@ class ProductController extends Controller
     {
         $this->authorize('viewAny', Product::class);
         $items = Product::search()->paginate(3);
+        // dd($items);
         $suppliers=Supplier::all();
         return view('admin.products.index', compact('items','suppliers'));
     }

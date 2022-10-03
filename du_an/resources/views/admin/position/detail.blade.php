@@ -1,5 +1,10 @@
 @extends('admin.index')
 @section('content')
+<style>
+    .form-switch .form-check-input{
+        margin-left: -6.5em;
+    }
+</style>
     <main id="main" class="main">
         <div class="pagetitle">
             <h1>Chức Vụ</h1>

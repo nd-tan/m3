@@ -40,9 +40,9 @@
                 <li class="nav-item">
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Thay đổi mật khẩu</button>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Quên mật khẩu</button>
-                  </li>
+                  </li> --}}
               </ul>
               <div class="tab-content pt-2">
                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
