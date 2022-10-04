@@ -1,8 +1,14 @@
 @extends('admin.index')
 @section('content')
 <style>
-    .form-switch .form-check-input{
+    /* .form-switch .form-check-input{
         margin-left: -6.5em;
+    } */
+    .form-switch{
+        padding-left: 0.5em;
+    }
+    #checkAll{
+        margin-left: 0.5em;
     }
 </style>
     <main id="main" class="main">
@@ -28,7 +34,7 @@
                         </div><br>
                         <div class="form-group">
                             <h4>Quyền hạn</h4>
-                            <label class="form-check form-switch">{{ __('CheckAll') }}
+                            <label  class="form-check form-switch">{{ __('CheckAll') }}
                                 <input type="checkbox" id="checkAll" class="form-check-input"
                                     value="Quyền hạn">
                             </label>
