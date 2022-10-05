@@ -34,6 +34,9 @@
     <h4>Danh mục sách</h4>
     <a class='btn btn-primary' id="add" href="{{ route('book.add') }}">Thêm sách</a>
     <br>
+    @if (isset($count))
+    <label>Tổng số sách hiện tại: {{$count}}</label>
+    @endif
     @if (Session::has('success'))
 <p>{{Session::get('success')}}</p>
     @endif

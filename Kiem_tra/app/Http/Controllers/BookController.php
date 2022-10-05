@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BookCreateRequest;
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
@@ -12,8 +13,9 @@ class BookController extends Controller
 {
     public function index()
     {
+        $count=DB::table('books')->count();
         $books = Book::search()->paginate(5);
-        return view('Book.index', compact('books'));
+        return view('Book.index', compact('books','count'));
     }
 
     public function create()
