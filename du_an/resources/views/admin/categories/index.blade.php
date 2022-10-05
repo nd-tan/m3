@@ -43,7 +43,7 @@
                     <a style='color:rgb(52,136,245)' class='btn' href=""><i class='bi bi-eye h4'></i></a>
                     @endif --}}
                     @if(Auth::user()->hasPermission('Category_update'))
-                    <a style='color:rgb(52,136,245)' class='btn' href="{{route('category.edit',$item->id)}}"><i class='bi bi-arrow-clockwise h4'></i></a>
+                    <a style='color:rgb(52,136,245)' class='btn' href="{{route('category.edit',$item->id)}}"><i class='bi bi-pencil-square h4'></i></a>
                     @endif
                     @if(Auth::user()->hasPermission('Category_delete'))
                     <button onclick="return confirm('Bạn có chắc muốn đưa danh mục này vào thùng rác không?');" class ='btn' style='color:rgb(52,136,245)' type="submit" ><i class='bi bi-trash h4'></i></button>

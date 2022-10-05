@@ -41,7 +41,7 @@
                 </div><br>
                 <label for="inputText" class="col-sm-2 col-form-label">Địa chỉ</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control @error('age') is-invalid @enderror" name="address"
+                    <input type="text" class="form-control @error('address') is-invalid @enderror" name="address"
                         value="{{ $request->address ?? old('address') }}">
                     @error('address')
                         <div class="text text-danger">{{ $message }}</div>
