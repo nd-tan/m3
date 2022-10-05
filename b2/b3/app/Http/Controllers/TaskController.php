@@ -15,8 +15,8 @@ class TaskController extends Controller
         return view('welcome',compact('item'));
     }
     public function add()
-    {
-        return view('add');
+    {   $a="<br>a<br>a";
+        return view('add',compact('a'));
     }
     public function store(Request $request)
     {
