@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ShopController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -100,6 +103,15 @@ Route::prefix('position')->group(function(){
     Route::get('/detail/{id}',[PositionController::class,'detail'])->name('position.detail');
     Route::put('/update_position/{id}',[PositionController::class,'update_position'])->name('position.update_position');
 });
+////////khách hàng
+Route::prefix('customer')->group(function(){
+    Route::get('/',[CustomerController::class,'index'])->name('customer.index');
+});
+/////////đơn hàng
+Route::prefix('order')->group(function(){
+    Route::get('/',[OrderController::class,'index'])->name('order.index');
+    Route::get('/detail/{id}',[OrderController::class,'detail'])->name('order.detail');
+});
 ///////nhân viên
 Route::prefix('user')->group(function(){
     Route::get('/',[UserController::class,'index'])->name('user.index');
@@ -128,4 +140,22 @@ Route::get('/login',[UserController::class,'login'])->name('login');
 Route::post('/checklogin',[UserController::class,'checklogin'])->name('user.checklogin');
 Route::get('/logout',[UserController::class,'logout'])->name('user.logout');
 
+});
+
+Route::prefix('shop')->group(function(){
+    Route::get('/',[ShopController::class,'index'])->name('shop.index');
+
+    Route::get('/cart',[ShopController::class,'cart'])->name('shop.cart');
+    Route::get('/store/{id}',[ShopController::class,'store'])->name('shop.store');
+    Route::patch('/update-cart', [ShopController::class, 'update'])->name('update.cart');
+    Route::delete('/remove-from-cart/{id}', [ShopController::class, 'remove'])->name('remove.from.cart');
+    Route::get('/checkOuts', [ShopController::class, 'checkOuts'])->name('checkOuts');
+    Route::post('/order', [ShopController::class, 'order'])->name('order');
+    Route::get('/history', [ShopController::class, 'history'])->name('history');
+
+
+    Route::get('/login',[ShopController::class,'login'])->name('shop.login');
+    Route::post('/checklogin',[ShopController::class,'checklogin'])->name('shop.checklogin');
+    Route::get('/register',[ShopController::class,'register'])->name('shop.register');
+    Route::post('/checkregister',[ShopController::class,'checkregister'])->name('shop.checkregister');
 });

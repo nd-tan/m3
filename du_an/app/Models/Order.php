@@ -16,4 +16,11 @@ class Order extends Model
     {
         return $this->belongsToMany(Product::class, 'orderdetail', 'order_id', 'product_id');
     }
+    public function scopeSearch($query)
+    {
+        if ($key = request()->key) {
+            $query = $query->where('name', 'like', '%' . $key . '%');
+        }
+        return $query;
+    }
 }

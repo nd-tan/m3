@@ -140,14 +140,8 @@
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="tables-general.html">
+            <a href="{{route('customer.index')}}">
               <i class="bi bi-circle"></i><span>Danh sách khách hàng</span>
-            </a>
-          </li>
-          {{-- @endif --}}
-          <li>
-            <a href="tables-data.html">
-              <i class="bi bi-circle"></i><span>Khách hàng đã mua hàng</span>
             </a>
           </li>
         </ul>
@@ -160,20 +154,15 @@
         </a>
         <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="charts-chartjs.html">
+            <a href="{{route('order.index')}}">
               <i class="bi bi-circle"></i><span>Đơn đặt hàng</span>
             </a>
           </li>
           <li>
-            <a href="charts-apexcharts.html">
+            <a href="#">
               <i class="bi bi-circle"></i><span>Đơn hàng đã giao</span>
             </a>
           </li>
-          {{-- <li>
-            <a href="charts-echarts.html">
-              <i class="bi bi-circle"></i><span>ECharts</span>
-            </a>
-          </li> --}}
         </ul>
     </li><!-- End Charts Nav -->
     @endif

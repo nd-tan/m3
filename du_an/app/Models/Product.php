@@ -30,12 +30,17 @@ class Product extends Model
     {
         return $this->belongsTo(Supplier::class, 'supplier_id', 'id');
     }
+    public function orderdetails()
+    {
+        return $this->hasMany(OrderDetail::class, 'product_id', 'id');
+    }
     public function scopeSearch($query)
     {
         if ($key = request()->key) {
             $query = $query->join('categories', 'products.category_id','=','categories.id')
             ->join('suppliers','products.supplier_id','=','suppliers.id')
-            ->select('products.*', 'categories.name as cate', 'suppliers.name as supli')->where('products.name', 'like', '%' . $key . '%')
+            ->select('products.*', 'categories.name as cate', 'suppliers.name as supli')
+            ->where('products.name', 'like', '%' . $key . '%')
             ->orwhere('age', 'like', '%' . $key . '%')
             ->orwhere('color', 'like', '%' . $key . '%')->orwhere('gender', 'like', '%' . $key . '%')
             ->orwhere('price', 'like', '%' . $key . '%')->orwhere('quantity', 'like', '%' . $key . '%')

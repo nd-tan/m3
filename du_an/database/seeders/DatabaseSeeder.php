@@ -5,6 +5,9 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Category;
+use App\Models\Customer;
+use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\Position;
 use App\Models\Product;
 use App\Models\Supplier;
@@ -31,6 +34,9 @@ class DatabaseSeeder extends Seeder
         $this->importSupplier();
         $this->importCategory();
         $this->importProduct();
+        $this->importCustomer();
+        $this->importOrder();
+        $this->importOrderDetail();
     }
     public function importRoles()
     {
@@ -200,7 +206,7 @@ class DatabaseSeeder extends Seeder
         $pro->color = 'xám';
         $pro->gender = 'Đực';
         $pro->price = '2000000';
-        $pro->quantity = '2';
+        $pro->quantity = '5';
         $pro->image = 'co.jpg';
         $pro->category_id = '1';
         $pro->supplier_id = '1';
@@ -239,12 +245,91 @@ class DatabaseSeeder extends Seeder
         $pro->color = 'trắng';
         $pro->gender = 'Cái';
         $pro->price = '3000000';
-        $pro->quantity = '1';
+        $pro->quantity = '5';
         $pro->image = 'dio.jpg';
         $pro->category_id = '2';
         $pro->supplier_id = '2';
         $pro->user_id = '1';
         $pro->save();
 
+    }
+    public function importCustomer()
+    {
+        $item = new Customer();
+        $item->name = 'Phùng Văn Phi';
+        $item->address = 'Gio Linh';
+        $item->email = 'phi@gmailcom';
+        $item->phone = '0912345678';
+        $item->password = Hash::make('123456');
+        $item->save();
+
+        $item = new Customer();
+        $item->name = 'Mai Xuân Cường';
+        $item->address = 'Cam Lộ';
+        $item->email = 'cuong@gmailcom';
+        $item->phone = '0934678123';
+        $item->password = Hash::make('123456');
+        $item->save();
+
+        $item = new Customer();
+        $item->name = 'Trần Ngọc Linh';
+        $item->address = 'Gio Linh';
+        $item->email = 'linh@gmailcom';
+        $item->phone = '0987654321';
+        $item->password = Hash::make('123456');
+        $item->save();
+    }
+    public function importOrder()
+    {
+        $item = new Order();
+        $item->customer_id = 1;
+        $item->total = 12000000;
+        $item->date_at = date('Y-m-d H:i:s');
+        $item->note = "giao buổi chiều";
+        $item->save();
+
+        $item = new Order();
+        $item->customer_id = 2;
+        $item->total = 1000000;
+        $item->date_at = date('Y-m-d H:i:s');
+        $item->note = "giao buổi sáng";
+        $item->save();
+
+        $item = new Order();
+        $item->customer_id = 3;
+        $item->total = 3000000;
+        $item->date_at = date('Y-m-d H:i:s');
+        $item->note = "giao buổi tối";
+        $item->save();
+    }
+    public function importOrderDetail()
+    {
+        $item = new OrderDetail();
+        $item->order_id = 1;
+        $item->product_id = 1;
+        $item->quantity = 1;
+        $item->total = 2000000;
+        $item->save();
+
+        $item = new OrderDetail();
+        $item->order_id = 1;
+        $item->product_id = 2;
+        $item->quantity = 2;
+        $item->total = 10000000;
+        $item->save();
+
+        $item = new OrderDetail();
+        $item->order_id = 2;
+        $item->product_id = 3;
+        $item->quantity = 1;
+        $item->total = 1000000;
+        $item->save();
+
+        $item = new OrderDetail();
+        $item->order_id = 3;
+        $item->product_id = 4;
+        $item->quantity = 1;
+        $item->total = 3000000;
+        $item->save();
     }
 }
