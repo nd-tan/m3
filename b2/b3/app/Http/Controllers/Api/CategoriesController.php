@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -11,7 +12,8 @@ class CategoriesController extends Controller
     public function index()
     {
         $items=Category::all();
-        return view('categories.index',compact('items'));
+        return response()->json($items,200);
+        // return view('categories.index',compact('items'));
     }
 
     public function create()
@@ -23,8 +25,8 @@ class CategoriesController extends Controller
     {
         $item= new Category();
         $item->name=$request->name;
-        $item->save();
-        return redirect()->route('categories.index');
+        $items=$item->save();
+        return response()->json($items,200);
     }
 
     public function show($id)
@@ -35,7 +37,7 @@ class CategoriesController extends Controller
     public function edit($id)
     {
         $item=Category::find($id);
-        return view('categories.edit',compact('item'));
+        return response()->json($item);
     }
 
     public function update(Request $request, $id)
@@ -43,13 +45,17 @@ class CategoriesController extends Controller
         $item=Category::find($id);
         $item->name=$request->name;
         $item->save();
-        return redirect()->route('categories.index');
+        return response()->json($item,200);
+
+        // return redirect()->route('categories.index');
     }
 
     public function destroy($id)
     {
         $item=Category::findOrFail($id);
         $item->delete();
-        return redirect()->route('categories.index');
+        return response()->json($item,200);
+
+        // return redirect()->route('categories.index');
     }
 }
