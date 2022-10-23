@@ -28,7 +28,7 @@
                         <ul class="featured__item__pic__hover">
                             <li><a href="#"><i class="fa fa-heart"></i></a></li>
                             <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                            <li><a id="addToCart" href="{{route('shop.store',$product->id)}}" id="{{ $product->id }}"
+                            <li><a id="addToCart" data-url="{{route('shop.store',$product->id)}}" id="{{ $product->id }}"
                                 ><i class="fa fa-shopping-cart"></i></a></li>
                         </ul>
                     </div>
@@ -47,8 +47,7 @@
     $(function() {
         $(document).on('click', '#addToCart', function(e) {
             e.preventDefault();
-            let id = $(this).attr('id');
-            let href = $(this).data('href');
+            let href = $(this).data('url');
             $.ajax({
                 url: href,
                 method: "get",
