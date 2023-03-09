@@ -4,8 +4,10 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Customer;
+use App\Models\Message;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Position;
@@ -27,20 +29,21 @@ class DatabaseSeeder extends Seeder
     {
         $this->importPositions();
         $this->importRoles();
-        $this->importPositionRole();
         $this->importRole();
+        $this->importPositionRole();
         $this->importUser();
-        $this->importPositionRole_1();
         $this->importSupplier();
         $this->importCategory();
+        $this->ImportBrand();
         $this->importProduct();
         $this->importCustomer();
         $this->importOrder();
         $this->importOrderDetail();
+        $this->ImportMessage();
     }
     public function importRoles()
     {
-        $groups = ['Category', 'User', 'Supplier','Product','Position'];
+        $groups = ['Category', 'User', 'Supplier','Product','Position', 'Brand'];
         $actions = ['viewAny', 'view', 'create', 'update', 'delete', 'restore', 'forceDelete'];
         foreach ($groups as $group) {
             foreach ($actions as $action) {
@@ -70,22 +73,22 @@ class DatabaseSeeder extends Seeder
 
     public function importPositionRole()
     {
-        for ($i = 1; $i <= 35; $i++) {
+        for ($i = 1; $i <= 46; $i++) {
             DB::table('position_role')->insert([
                 'position_id' => 1,
                 'role_id' => $i,
             ]);
         }
     }
-    public function importPositionRole_1()
-    {
-        for ($i = 36; $i <= 39; $i++) {
-            DB::table('position_role')->insert([
-                'position_id' => 1,
-                'role_id' => $i,
-            ]);
-        }
-    }
+    // public function importPositionRole_1()
+    // {
+    //     for ($i = 36; $i <= 39; $i++) {
+    //         DB::table('position_role')->insert([
+    //             'position_id' => 1,
+    //             'role_id' => $i,
+    //         ]);
+    //     }
+    // }
 
     public function importPositions()
     {
@@ -119,6 +122,8 @@ class DatabaseSeeder extends Seeder
         $user->phone = '0935779035';
         $user->gender = 'Nam';
         $user->position_id = '2';
+        $user->status = "0";
+        $user->room = 12;
         $user->save();
 
         $user = new User();
@@ -131,6 +136,7 @@ class DatabaseSeeder extends Seeder
         $user->phone = '0777333274';
         $user->gender = 'Nam';
         $user->position_id = '3';
+        $user->status = "0";
         $user->save();
 
         $user = new User();
@@ -143,6 +149,7 @@ class DatabaseSeeder extends Seeder
         $user->position_id = '3';
         $user->gender = 'Nam';
         $user->image = 'hai.jpg';
+        $user->status = "1";
         $user->save();
 
         $user = new User();
@@ -155,6 +162,7 @@ class DatabaseSeeder extends Seeder
         $user->position_id = '4';
         $user->gender = 'Nam';
         $user->image = 'duong.jpg';
+        $user->status = "1";
         $user->save();
 
         $user = new User();
@@ -167,6 +175,8 @@ class DatabaseSeeder extends Seeder
         $user->position_id = '1';
         $user->gender = 'Nam';
         $user->image = 'vinh.jpg';
+        $user->status = "0";
+        $user->room = 12;
         $user->save();
     }
 
@@ -211,6 +221,7 @@ class DatabaseSeeder extends Seeder
         $pro->category_id = '1';
         $pro->supplier_id = '1';
         $pro->user_id = '1';
+        $pro->brand_id = '1';
         $pro->save();
 
         $pro = new Product();
@@ -224,6 +235,7 @@ class DatabaseSeeder extends Seeder
         $pro->category_id = '2';
         $pro->supplier_id = '2';
         $pro->user_id = '1';
+        $pro->brand_id = '2';
         $pro->save();
 
         $pro = new Product();
@@ -237,6 +249,7 @@ class DatabaseSeeder extends Seeder
         $pro->category_id = '1';
         $pro->supplier_id = '1';
         $pro->user_id = '1';
+        $pro->brand_id = '3';
         $pro->save();
 
         $pro = new Product();
@@ -250,6 +263,7 @@ class DatabaseSeeder extends Seeder
         $pro->category_id = '2';
         $pro->supplier_id = '2';
         $pro->user_id = '1';
+        $pro->brand_id = '1';
         $pro->save();
 
     }
@@ -331,5 +345,49 @@ class DatabaseSeeder extends Seeder
         $item->quantity = 1;
         $item->total = 3000000;
         $item->save();
+    }
+    public function ImportBrand(){
+        $brand = new Brand();
+        $brand->name = "SamSung";
+        $brand->phone = "0123456789";
+        $brand->address = "China";
+        $brand->save();
+
+        $brand = new Brand();
+        $brand->name = "Nokia";
+        $brand->phone = "789456123";
+        $brand->address = "American";
+        $brand->save();
+
+        $brand = new Brand();
+        $brand->name = "Iphone";
+        $brand->phone = "999999999";
+        $brand->address = "NewYork";
+        $brand->save();
+    }
+    public function ImportMessage(){
+        $mess = new Message();
+        $mess->user_id = 1;
+        $mess->content = "alo";
+        $mess->room_name = 12;
+        $mess->save();
+
+        $mess = new Message();
+        $mess->user_id = 5;
+        $mess->content = "nghe ne";
+        $mess->room_name = 12;
+        $mess->save();
+
+        $mess = new Message();
+        $mess->user_id = 1;
+        $mess->content = "o mo do";
+        $mess->room_name = 12;
+        $mess->save();
+
+        $mess = new Message();
+        $mess->user_id = 5;
+        $mess->content = "da nang";
+        $mess->room_name = 12;
+        $mess->save();
     }
 }

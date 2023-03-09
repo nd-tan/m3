@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class OrderDetail extends Model
 {
     use HasFactory;
-    protected $table ='orderdetail';
+    protected $table ='order_detail';
+    protected $fillable = ['order_id', 'product_id', 'quantity', 'total'];
     public function scopeSearch($query)
     {
         if ($key = request()->key) {

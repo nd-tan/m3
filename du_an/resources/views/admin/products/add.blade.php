@@ -2,16 +2,11 @@
     div.col-sm-10 {
         margin: 0px 0px 23px 0px;
     }
-
     .select {
-        /* margin: 0px 0px 23px 0px; */
-        width: 820px;
+        width: 100%;
         height: 40px;
-    }
-
-    input.form-control-file {
-        /* margin: 0px 0px 23px 0px; */
-
+        border-radius: 5px;
+        border-color: #ced4da;
     }
 </style>
 @extends('admin.index')
@@ -41,11 +36,25 @@
                 </div><br>
                 <label for="inputText" class="col-sm-2 col-form-label">Nhà cung cấp</label>
                 <div class="col-sm-10">
-                    <select name="supplier" class="select">
+                    <select name="supplier_id" class="select">
                         @foreach ($suppliers as $supplier)
                             <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
                         @endforeach
                     </select>
+                    @error('supplier_id')
+                        <div class="text text-danger">{{ $message }}</div>
+                    @enderror
+                </div><br>
+                <label for="inputText" class="col-sm-2 col-form-label">Thương hiệu</label>
+                <div class="col-sm-10">
+                    <select name="brand_id" class="select">
+                        @foreach ($brands as $brand)
+                            <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('brand_id')
+                        <div class="text text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <label for="inputText" class="col-sm-2 col-form-label">Danh mục</label>
                 <div class="col-sm-10">
@@ -54,6 +63,9 @@
                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                         @endforeach
                     </select>
+                    @error('category_id')
+                        <div class="text text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <label for="inputText" class="col-sm-2 col-form-label">Tuổi</label>
                 <div class="col-sm-10">
@@ -77,6 +89,9 @@
                         <option value="đực">Đực</option>
                         <option value="cái">Cái</option>
                     </select>
+                    @error('gender')
+                        <div class="text text-danger">{{ $message }}</div>
+                    @enderror
                 </div><br>
                 <label for="inputText" class="col-sm-2 col-form-label">Giá</label>
                 <div class="col-sm-10">

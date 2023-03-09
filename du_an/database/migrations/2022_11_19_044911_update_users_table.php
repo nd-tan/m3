@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('positions', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->date('deleted_at')->nullable();
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->softDeletes(); // add
+            $table->foreignId('position_id')->references('id')->on('positions');
+            $table->tinyInteger('status')->default('0')->comment('0=online, 1=offline');
+            $table->integer('room')->nullable();
         });
     }
 
@@ -28,6 +28,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('positions');
+        //
     }
 };
+?>

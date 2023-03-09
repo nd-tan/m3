@@ -4,14 +4,10 @@
     }
 
     .select {
-        /* margin: 0px 0px 23px 0px; */
-        width: 820px;
+        width: 100%;
         height: 40px;
-    }
-
-    input.form-control-file {
-        /* margin: 0px 0px 23px 0px; */
-
+        border-radius: 5px;
+        border-color: #ced4da;
     }
 </style>
 @extends('admin.index')
@@ -41,12 +37,14 @@
                 </div><br>
                 <label for="inputText" class="col-sm-2 col-form-label">Chức vụ</label>
                 <div class="col-sm-10">
-                    <select name="position" class="select">
+                    <select name="position_id" class="select">
                         @foreach ($positions as $position)
-                            <option {{ $position->name == 'Nhân viên' ? 'selected' : '' }} value="{{ $position->id }}">
-                                {{ $position->name }}</option>
+                            <option value="{{ $position->id }}"> {{ $position->name }}</option>
                         @endforeach
                     </select>
+                    @error('position_id')
+                        <label class="text text-danger">{{ $message }}</label>
+                    @enderror
                 </div>
                 <label for="inputText" class="col-sm-2 col-form-label">Địa chỉ</label>
                 <div class="col-sm-10">

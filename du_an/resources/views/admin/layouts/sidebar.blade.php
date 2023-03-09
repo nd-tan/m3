@@ -125,11 +125,11 @@
             </a>
           </li>
           @endif
-          {{-- <li>
-            <a href="forms-validation.html">
-              <i class="bi bi-circle"></i><span>Form Validation</span>
+          <li>
+            <a href="{{route('brand.index')}}">
+              <i class="bi bi-circle"></i><span>Thương Hiệu</span>
             </a>
-          </li> --}}
+          </li>
         </ul>
       </li><!-- End Forms Nav -->
       @endif
@@ -147,6 +147,23 @@
         </ul>
     </li><!-- End Tables Nav -->
     @endif
+
+    <li class="nav-item">
+          @if(Auth::user()->hasPermission('Customer_viewAny'))
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Tin Nhắn</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{route('message.index')}}">
+              <i class="bi bi-circle"></i><span>Danh sách tin nhắn</span>
+            </a>
+          </li>
+        </ul>
+    </li><!-- End Tables Nav -->
+    @endif
+
+
     @if(Auth::user()->hasPermission('Order_viewAny'))
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">

@@ -15,6 +15,7 @@ class User extends Authenticatable
     use Notifiable,
     SoftDeletes;// add soft delete
     use HasApiTokens, HasFactory, Notifiable, HasPermissions;
+    protected $table = "users";
     protected $fillable = ['name','address','phone','image','gender','birthday','email','password','position_id'];
     protected $hidden = [
         'password',
@@ -31,6 +32,10 @@ class User extends Authenticatable
     public function products()
     {
         return $this->hasMany(Product::class, 'user_id', 'id');
+    }
+    public function messages()
+    {
+        return $this->hasMany(Message::class, 'user_id', 'id');
     }
     public function scopeSearch($query)
     {

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
-use App\Http\Requests\Userpassword;
-use App\Http\Requests\UserupdateRequest;
+use App\Http\Requests\UserPassword;
+use App\Http\Requests\UserUpdateRequest;
 use App\Jobs\SendEmail;
 use App\Models\Position;
 use App\Models\Supplier;
@@ -82,7 +82,7 @@ class UserController extends Controller
         $item->phone = $request->phone;
         $item->email = $request->email;
         $item->password = bcrypt("admin");
-        $item->position_id=$request->position;
+        $item->position_id=$request->position_id;
         $item->gender=$request->gender;
         $item->birthday=$request->birthday;
         $file = $request->inputFile;
@@ -100,17 +100,18 @@ class UserController extends Controller
                 'task'=>'Bạn',
                 'content'=>'đã được thêm vào AdminShop với chức vụ '.$item->position->name.'!',
                 'note'=>'Dưới đây là mật khẩu của bạn. Không chia sẽ mật khẩu với người khác.
-                 Hãy nhanh chóng đăng nhập vào AdminShop và đổi mật khẩu để tăng bảo mật cho tài khoản!
-                 <br><br>Mật khẩu: admin<br>'
+                Hãy nhanh chóng đăng nhập vào AdminShop và đổi mật khẩu để tăng bảo mật cho tài khoản!
+                <br><br>Mật khẩu: admin<br>'
             ];
-            SendEmail::dispatch($data,$item->email)->delay(now()->addMinute(1));
+            // SendEmail::dispatch($data,$item->email)->delay(now()->addMinute());
+            // dd($item);
             toast('Thêm nhân viên thành công!', 'success', 'top-right');
             return redirect()->route('user.index');
         } catch (\Exception $th) {
             toast('Thêm nhân viên không thành công!','error','top-right');
             $image = 'public/images_admin/'.$item->image;
             Storage::delete($image);
-            return view('admin.users.add');
+            return redirect()->route('user.index');
         }
     }
 
@@ -122,7 +123,7 @@ class UserController extends Controller
         return view('admin.users.edit', compact('item', 'positions'));
     }
 
-    public function update(UserupdateRequest $request,$id)
+    public function update(UserUpdateRequest $request,$id)
     {
         $item=User::find($id);
         $item->name = $request->name;
@@ -223,7 +224,7 @@ class UserController extends Controller
         }
     }
 
-    public function update_info(UserupdateRequest $request,$id)
+    public function update_info(UserUpdateRequest $request,$id)
     {
         $item=User::find($id);
         $item->name = $request->name;
@@ -263,7 +264,7 @@ class UserController extends Controller
         return view('admin.users.info',compact('item'));
     }
 
-    public function change_password(Userpassword $request)
+    public function change_password(UserPassword $request)
     {
         if($request->renewpassword==$request->newpassword)
         {
@@ -277,7 +278,7 @@ class UserController extends Controller
                     'content'=>'đã thay đổi mật khẩu thành công!',
                     'note'=>'Nếu bạn không thực hiện thay đổi mật khẩu thì hãy nhanh chóng đăng nhập vào AdminShop để bảo mật tài khoản của bạn!'
                 ];
-                SendEmail::dispatch($data,auth()->user()->email)->delay(now()->addMinute(1));
+                // SendEmail::dispatch($data,auth()->user()->email)->delay(now()->addMinute(1));
                 toast('Thay đổi mật khẩu thành công!','success','top-right');
                 return redirect()->route('user.info');
             }else{

@@ -60,19 +60,19 @@ class SupplierController extends Controller
         $item->email=$request->email;
         $item->address=$request->address;
         $item->phone=$request->phone;
-        $values=Supplier::all();
-        foreach($values as $value)
-        {
-            if($value->id==$id)
-            {
-                continue;
-            }
-            if($value->email==$request->email)
-            {
-                toast('Email này đã được sủ dụng!','error','top-right');
-                return redirect()->route('supplier.edit',$id);
-            }
-        }
+        // $values=Supplier::all();
+        // foreach($values as $value)
+        // {
+        //     if($value->id==$id)
+        //     {
+        //         continue;
+        //     }
+        //     if($value->email==$request->email)
+        //     {
+        //         toast('Email này đã được sủ dụng!','error','top-right');
+        //         return redirect()->route('supplier.edit',$id);
+        //     }
+        // }
         try {
             $item->save();
             toast('Sửa nhà cung cấp thành công!','success','top-right');

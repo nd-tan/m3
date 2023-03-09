@@ -30,6 +30,7 @@
                     <th width="10%">Tên Sản Phẩm</th>
                     <th width="10%">Danh Mục</th>
                     <th width="10%">Nhà cung cấp</th>
+                    <th width="10%">Thương hiệu</th>
                     <th width="10%">Hình Ảnh</th>
                     <th width="15%">Tùy Chọn</th>
                 </tr>
@@ -41,6 +42,7 @@
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->category->name }}</td>
                         <td>{{ $item->supplier->name }}</td>
+                        <td>{{ $item->brand->name }}</td>
                         <td>
                             <img src="{{ asset('storage/images/' . $item->image) }}" alt="" width='120px'
                                 height="100px">

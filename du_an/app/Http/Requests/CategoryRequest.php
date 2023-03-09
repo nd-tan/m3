@@ -24,7 +24,7 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:categories',
+            'name' => ['required','unique:categories', 'min:3', 'max:20'],
         ];
     }
     public function messages()
@@ -32,6 +32,8 @@ class CategoryRequest extends FormRequest
         return [
             'name.required' => 'Danh mục không được để trống!',
             'name.unique' => 'Danh mục này đã tồn tại!',
+            'name.min' => 'Tên danh mục phải có ít nhất 3 kí tự!',
+            'name.max' => 'Tên danh mục không được vượt quá 20 kí tự!',
         ];
     }
 }

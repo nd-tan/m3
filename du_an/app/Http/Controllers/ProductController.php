@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductCreateRequest;
 use App\Http\Requests\ProductUpdateRequest;
+use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Supplier;
@@ -20,16 +21,17 @@ class ProductController extends Controller
         $this->authorize('viewAny', Product::class);
         $items = Product::search()->paginate(3);
         // dd($items);
-        $suppliers=Supplier::all();
-        return view('admin.products.index', compact('items','suppliers'));
+        // $suppliers=Supplier::all();
+        return view('admin.products.index', compact('items'));
     }
 
     public function create()
     {
         $this->authorize('create', Product::class);
         $items = Category::all();
-        $suppliers=Supplier::all();
-        return view('admin.products.add', compact('items','suppliers'));
+        $suppliers = Supplier::all();
+        $brands = Brand::all();
+        return view('admin.products.add', compact('items','suppliers', 'brands'));
     }
 
     public function store(ProductCreateRequest $request)
@@ -37,10 +39,12 @@ class ProductController extends Controller
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $items = Category::all();
         $suppliers=Supplier::all();
+        $brands = Brand::all();
         $param=[
             'items'=>$items,
             'request'=>$request,
             'suppliers'=>$suppliers,
+            'brand'=>$brands
         ];
         $item = new Product();
         $item->name = $request->name;
@@ -50,7 +54,8 @@ class ProductController extends Controller
         $item->price = $request->price;
         $item->quantity = $request->quantity;
         $item->category_id = $request->category_id;
-        $item->supplier_id = $request->supplier;
+        $item->supplier_id = $request->supplier_id;
+        $item->brand_id = $request->brand_id;
         $item->user_id=Auth()->user()->id;
         $file = $request->inputFile;
 
@@ -84,9 +89,11 @@ class ProductController extends Controller
     public function edit($id)
     {
         $items = Category::all();
+        $suppliers=Supplier::all();
+        $brands = Brand::all();
         $item=Product::find($id);
         $this->authorize('update', Product::class);
-        return view('admin.products.edit', compact('item', 'items'));
+        return view('admin.products.edit', compact('item', 'items', 'suppliers', 'brands'));
     }
 
     public function update(ProductUpdateRequest $request, $id)
@@ -100,6 +107,8 @@ class ProductController extends Controller
         $item->price = $request->price;
         $item->quantity = $request->quantity;
         $item->category_id = $request->category_id;
+        $item->brand_id = $request->brand_id;
+        $item->supplier_id = $request->supplier_id;
         $item->user_id_edit=Auth()->user()->id;
         $file = $request->inputFile;
 
@@ -131,8 +140,8 @@ class ProductController extends Controller
     {
         $item=Product::findOrFail($id);
         $this->authorize('delete', Product::class);
-        $order=DB::table('products')->join('orderdetail','products.id','=','orderdetail.product_id')
-        ->select(DB::raw('count(orderdetail.product_id), products.id'))->groupBy('products.id')
+        $order=DB::table('products')->join('order_detail','products.id','=','order_detail.product_id')
+        ->select(DB::raw('count(order_detail.product_id), products.id'))->groupBy('products.id')
         ->where('products.id','=',$id)->get();
         if(empty($order->toArray()))
         {

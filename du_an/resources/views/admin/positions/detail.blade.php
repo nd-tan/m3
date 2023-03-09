@@ -10,6 +10,21 @@
     #checkAll{
         margin-left: 0.5em;
     }
+    .check-group{
+        margin-left: 20px;
+        margin-top: -10px;
+    }
+    .check_group_all{
+        margin-left:60px;
+    }
+    .all{
+        font-size:25px;
+        margin-bottom: 10px;
+    }
+    .title{
+        display:flex;
+    }
+
 </style>
     <main id="main" class="main">
         <div class="pagetitle">
@@ -31,22 +46,26 @@
                         <legend>Thông tin chức vụ</legend>
                         <div class="form-group">
                             <label for="tf1">Tên chức vụ:</label> {{$item->name}}
-                        </div><br>
+                        </div>
                         <div class="form-group">
-                            <h4>Quyền hạn</h4>
-                            <label  class="form-check form-switch">{{ __('CheckAll') }}
-                                <input type="checkbox" id="checkAll" class="form-check-input"
-                                    value="Quyền hạn">
-                            </label>
+                            <div class = "title">
+                                <div>
+                                    <label class="form-check form-switch all">{{ __('CheckAll') }}
+                                        <input type="checkbox" id="checkAll" class="form-check-input"
+                                            value="Quyền hạn">
+                                    </label>
+                                </div>
+                            </div>
                             <div class="row">
                                 @foreach ($position_names as $group_name => $roles)
                                     <div class="list-group list-group-flush list-group-bordered col-lg-4">
                                         <div class="list-group-header" style="color:rgb(2, 6, 249) ;">
-                                            <h5> {{ __($group_name) }}</h5>
-                                            {{-- <label class="form-check form-switch ">{{ __('CheckAll') }}
-                                                <input  type="checkbox" id="checkAll" class="form-check-input"
-                                                    value="Quyền hạn">
-                                            </label> --}}
+                                            <h5>
+                                                <span> {{ __($group_name) }} </span>
+                                                <label class="form-switch check_group_all">
+                                                    <input type="checkbox" id ="{{$group_name}}" class="form-check-input check-group aa">
+                                                </label>
+                                            </h5>
                                         </div>
                                         @foreach ($roles as $role)
                                             <div class="list-group-item d-flex justify-content-between align-items-center">
@@ -54,7 +73,7 @@
                                                 <!-- .switcher-control -->
                                                 <label class="form-check form-switch ">
                                                     <input type="checkbox" @checked(in_array($role['id'], $userRoles)) name="roles[]"
-                                                        class="checkItem form-check-input checkItem"
+                                                        class="checkItem form-check-input check{{$group_name}}" id = "check{{ $group_name }}"
                                                         value="{{ $role['id'] }}">
                                                     <span class="switcher-indicator"></span>
                                                 </label>
@@ -81,6 +100,11 @@
     <script>
         $('#checkAll').click(function() {
             $(':checkbox.checkItem').prop('checked', this.checked);
+            $(':checkbox.aa').prop('checked', this.checked);
         });
+        $('.aa').click(function(){
+            let id = $(this).attr("id");
+                $('.check'+id).prop('checked', this.checked);
+        })
     </script>
 @endsection

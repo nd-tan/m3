@@ -30,6 +30,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" >
   <!-- Template Main CSS File -->
   <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
+  <link href="{{asset('assets/css/style2.css')}}" rel="stylesheet">
   <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
 
 <style>
@@ -48,11 +49,11 @@
 <body>
 
   <!-- ======= Header ======= -->
-  @include("admin.layout.header")
+  @include("admin.layouts.header")
 <!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
-  @include("admin.layout.sidebar")
+  @include("admin.layouts.sidebar")
 
 <!-- End Sidebar-->
 

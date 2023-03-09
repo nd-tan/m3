@@ -13,10 +13,15 @@ class Product extends Model
     use HasFactory;
     use Notifiable,
     SoftDeletes;// add soft delete
+    protected $table = "products";
     protected $fillable = ['name','age','color','gender','price','quantity','image','category_id','supplier_id','user_id'];
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class, 'brand_id', 'id');
     }
     public function orders()
     {

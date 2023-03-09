@@ -18,13 +18,13 @@ class PositionController extends Controller
     {
         $this->authorize('viewAny', Position::class);
         $items=Position::search()->paginate(5);
-        return view('admin.position.index',compact('items'));
+        return view('admin.positions.index',compact('items'));
     }
 
     public function add()
     {
         $this->authorize('create', Position::class);
-        return view('admin.position.add');
+        return view('admin.positions.add');
     }
 
     public function store(PositionRequest $request)
@@ -45,7 +45,7 @@ class PositionController extends Controller
     {
         $item=Position::find($id);
         $this->authorize('update', Position::class);
-        return view('admin.position.edit',compact('item'));
+        return view('admin.positions.edit',compact('item'));
     }
 
     public function update(PositionRequest $request,$id)
@@ -93,7 +93,7 @@ class PositionController extends Controller
     public function softdelete()
     {
         $items=Position::search()->onlyTrashed()->paginate(5);
-        return view('admin.position.recycle', compact('items'));
+        return view('admin.positions.recycle', compact('items'));
     }
 
     public function retrieve($id)
@@ -138,13 +138,14 @@ class PositionController extends Controller
         foreach ($roles as $role) {
             $position_names[$role['position_name']][] = $role;
         }
+        // dd($position_names);
         $params = [
             'item' => $item,
             'userRoles' => $userRoles,
             'roles' => $roles,
             'position_names' => $position_names,
         ];
-        return view('admin.position.detail',$params);
+        return view('admin.positions.detail',$params);
     }
 
     public function update_position(Request $request,$id)

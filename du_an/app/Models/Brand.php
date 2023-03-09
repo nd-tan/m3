@@ -5,18 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Notifications\Notifiable;
 
-class Supplier extends Model
+class Brand extends Model
 {
-    use HasFactory;
-    use Notifiable,
-    SoftDeletes;// add soft delete
-    protected $table = "suppliers";
-    protected $fillable = ['name','email','address','phone'];
+    use HasFactory,SoftDeletes;
+    protected $fillable = ['name', 'phone', 'address'];
     public function products()
     {
-        return $this->hasMany(Product::class, 'supplier_id', 'id');
+        return $this->hasMany(Product::class, 'brand_id', 'id');
     }
     public function scopeSearch($query)
     {

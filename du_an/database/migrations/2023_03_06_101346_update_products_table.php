@@ -13,14 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('customers', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('address');
-            $table->string('email')->unique();
-            $table->string('phone');
-            $table->string('password');
-            $table->timestamps();
+        Schema::table('products', function (Blueprint $table) {
+            $table->unsignedBigInteger('brand_id');
+            $table->foreign('brand_id')->references('id')->on('brands');
         });
     }
 
@@ -31,6 +26,5 @@ return new class extends Migration
      */
     public function down()
     {
-        // Schema::dropIfExists('customers');
     }
 };

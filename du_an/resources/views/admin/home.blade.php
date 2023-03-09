@@ -1,6 +1,6 @@
 @extends('admin.index')
 @section('content')
 
-@include('admin.layout.content')
+@include('admin.layouts.content')
 
 @endsection

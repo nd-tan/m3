@@ -2,19 +2,13 @@
     div.col-sm-10 {
         margin: 0px 0px 23px 0px;
     }
-
     .select {
-        /* margin: 0px 0px 23px 0px; */
-        width: 820px;
+        width: 100%;
         height: 40px;
-    }
-
-    input.form-control-file {
-        /* margin: 0px 0px 23px 0px; */
-
+        border-radius: 5px;
+        border-color: #ced4da;
     }
 </style>
-
 @extends('admin.index')
 @section('content')
     <main id="main" class="main">

@@ -2,11 +2,11 @@
     div.col-sm-10 {
         margin: 0px 0px 23px 0px;
     }
-
     .select {
-        /* margin: 0px 0px 23px 0px; */
-        width: 820px;
+        width: 100%;
         height: 40px;
+        border-radius: 5px;
+        border-color: #ced4da;
     }
 </style>
 @extends('admin.index')
@@ -40,6 +40,24 @@
                         @foreach ($items as $value)
                             <option <?= $value->id == $item->category_id ? 'selected' : '' ?> value="{{ $value->id }}">
                                 {{ $value->name }}</option>
+                        @endforeach
+                    </select>
+                </div><br>
+                <label for="inputText" class="col-sm-2 col-form-label">Nhà cung cấp</label>
+                <div class="col-sm-10">
+                    <select name="supplier_id" class="select">
+                        @foreach ($suppliers as $supplier)
+                            <option <?= $supplier->id == $item->supplier_id ? 'selected' : '' ?> value="{{ $supplier->id }}">
+                                {{ $supplier->name }}</option>
+                        @endforeach
+                    </select>
+                </div><br>
+                <label for="inputText" class="col-sm-2 col-form-label">Thương hiệu</label>
+                <div class="col-sm-10">
+                    <select name="brand_id" class="select">
+                        @foreach ($brands as $brand)
+                            <option <?= $brand->id == $item->brand_id ? 'selected' : '' ?> value="{{ $brand->id }}">
+                                {{ $brand->name }}</option>
                         @endforeach
                     </select>
                 </div>
