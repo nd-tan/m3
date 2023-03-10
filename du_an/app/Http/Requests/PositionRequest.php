@@ -25,16 +25,16 @@ class PositionRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','unique:positions',
-                        function($attribute, $value, Closure $fail){
-                            $pattern = '/^[A-Za-z]+[A-Za-z]*$/';
-                            if(!preg_match($pattern,$value)){
-                                $fail('Tên chức vụ không đúng định dạng');
-                            }
-                            if($value == "admin"){
-                                $fail('Tên chức vụ "admin" đã bị cấm');
-                            }
-                        }
+            'name' => ['required','unique:positions', 'not_in:admin',
+                        // function($attribute, $value, Closure $fail){
+                        //     $pattern = '/^[\w]+\s[\w^0-9]*$/';
+                        //     if(!preg_match($pattern,$value)){
+                        //         $fail('Tên chức vụ không đúng định dạng');
+                        //     }
+                        //     if($value == "admin"){
+                        //         $fail('Tên chức vụ "admin" đã bị cấm');
+                        //     }
+                        // }
                     ],
         ];
     }
@@ -43,6 +43,7 @@ class PositionRequest extends FormRequest
         return [
             'name.required' => 'Chức vụ không được để trống!',
             'name.unique' => 'Chức vụ này đã tồn tại!',
+            'name.not_in' => 'Chức vụ này bị cấm!',
         ];
     }
 }

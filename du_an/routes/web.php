@@ -150,7 +150,8 @@ Route::prefix('/')->middleware(['auth', 'revalidate'])->group(function () {
         ////show
         // Route::get('/show/{id}',[UserController::class,'show'])->name('message.show');
         Route::post('/add', [MessageController::class, 'store'])->name('message.add');
-        // Route::post('/checkregister',[MessageController::class,'checkregister'])->name('message.checkregister');
+        Route::post('/import', [MessageController::class, 'import'])->name('message.import');
+        Route::get('/export',[MessageController::class,'export'])->name('message.export');
         // // // ///edit
         // Route::get('/edit/{id}',[MessageController::class,'edit'])->name('message.edit');
         // Route::put('/update/{id}',[MessageController::class,'update'])->name('message.update');

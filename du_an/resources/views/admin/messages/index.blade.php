@@ -10,6 +10,24 @@
                 </ol>
             </nav>
         </div>
+        <div>
+            <form action="{{route('message.import')}}" method = "post" enctype="multipart/form-data">
+                @csrf
+                <input type="file" name="file">
+                <button type="submit">import</button>
+                @error('file')
+                        <div class="text text-danger">{{ $message }}</div>
+                @enderror
+                @error('room_name')
+                        <div class="text text-danger">{{ $message }}</div>
+                @enderror
+            </form>
+            <a href="{{route('message.export')}}">export</a>
+            <!-- <form action="{{route('message.export')}}" method = "post">
+            @csrf
+                <button type="submit">export</button>
+            </form> -->
+        </div>
         <div class="chat">
         <div class="chat-left">
             <div class="chat-left-search">
@@ -73,7 +91,7 @@
                                                 <span class="span-content text-message"><a href="#">{{$message->content}}</a></span><br>
                                             </div>
                                             <div class="time-mess-2">
-                                                <span class="time-mess-detail-2 time">{{$message->created_at}}</span>
+                                                <span style="opacity:0" class="time-mess-detail-2 time">{{$message->created_at}}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -93,7 +111,7 @@
                                             <span class="span-content text-message"><a href="#">{{$message->content}}</a></span><br>
                                         </div>
                                         <div class="time-mess">
-                                            <span class="time-mess-detail time">{{$message->created_at}}</span>
+                                            <span style="opacity:0" class="time-mess-detail time">{{$message->created_at}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -120,9 +138,7 @@
             for (let i = 0; i < times.length; i++) {
                 let date = new Date(times[i].innerHTML);
                 let timeshot = date.toLocaleDateString("en-US", options);
-                console.log(timeshot);
                 times[i].innerHTML = timeshot;
-                times[i].style.opacity = 0;
             }
             let click = document.getElementsByClassName('text-message');
             for (let i= 0; i< click.length; i++) {

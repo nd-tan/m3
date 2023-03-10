@@ -1,11 +1,8 @@
 @extends('admin.index')
 @section('content')
 <style>
-    /* .form-switch .form-check-input{
-        margin-left: -6.5em;
-    } */
     .form-switch{
-        padding-left: 0.5em;
+        padding-left: 0em;
     }
     #checkAll{
         margin-left: 0.5em;
@@ -23,6 +20,9 @@
     }
     .title{
         display:flex;
+    }
+    h5{
+        margin-left: 15px;
     }
 
 </style>
@@ -95,8 +95,7 @@
             </form>
         </div>
     </main>
-    <script
-    src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script>
         $('#checkAll').click(function() {
             $(':checkbox.checkItem').prop('checked', this.checked);

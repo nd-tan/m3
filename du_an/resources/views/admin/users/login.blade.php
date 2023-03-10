@@ -37,15 +37,21 @@
                                         @method('POST')
                                         @csrf
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="" type="email" placeholder=""
+                                            <input class="form-control"  type="email" placeholder=""
                                                 name="email" />
                                             <label for="inputEmail">Email address</label>
                                         </div>
+                                        @error('email')
+                                            <label class="text text-danger">{{ $message }}</label>
+                                        @enderror
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="" type="password" placeholder=""
+                                            <input class="form-control" type="password" placeholder=""
                                                 name="password" />
-                                            <label for="inputPassword">Password</label>
-                                        </div>
+                                                <label for="inputPassword">Password</label>
+                                            </div>
+                                            @error('password')
+                                                <label class="text text-danger">{{ $message }}</label>
+                                            @enderror
                                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                             <a class="small" href="#">Forgot Password?</a>
                                             <button class="btn btn-primary">Login</button>
