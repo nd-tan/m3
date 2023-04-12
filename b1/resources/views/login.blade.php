@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    @vite('resources/js/app.js')
-    @vite('resources/js/login.js')
+    @vite('resources/sass/datepicker.css')
+    @vite('resources/sass/login.css')
 </head>
 
 <body>
-    <form action="{{route("check")}}" method="post">
+    <!-- <form action="{{route("check")}}" method="post">
         @method('POST')
         @csrf
         <h1>đăng nhập</h1>
@@ -25,12 +25,14 @@
     </form>
     @if(isset($mes))
     <p>{{$mes}}</p>
-    @endif
-<script>
-    a=4;
-    console.log(a);
-</script>
+    @endif -->
+    <div style="display: flex">
+        <div>Date: <input type="text" id="datepicker"></div>
+        <div>Date: <input type="text" id="datepicker_2"></div>
+    </div>
 
 </body>
-
+@vite('resources/js/app.js')
+@vite('resources/js/datepicker.js')
+@vite('resources/js/login.js')
 </html>

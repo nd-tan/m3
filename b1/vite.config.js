@@ -7,10 +7,15 @@ export default defineConfig({
         laravel([
             'resources/js/login.js',
             'resources/js/app.js',
+            'resources/js/datepicker.js',
+            'resources/sass/datepicker.css',
+            'resources/sass/login.css',
         ]),
     ],
     resolve: {
         alias: {
+            '~bootstrap-datepicker': path.resolve(__dirname, 'node_modules/bootstrap-datepicker'),
+            '~jquery-datetimepicker': path.resolve(__dirname, 'node_modules/jquery-datetimepicker'),
         },
     },
 });

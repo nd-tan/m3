@@ -24,19 +24,42 @@
             });
         },
         init: function() {
-            // $(document).ready(function(){
-            //     setTimeout(() => {
-            //         var menuId = $('.c-sidebar-nav-link.c-active').data('id');
-
-            //         if (menuId != '' && menuId != undefined) {
-            //             window.localStorage.setItem('menu-selected', menuId);
-            //         } else {
-            //             var menuIdStorage = window.localStorage.getItem('menu-selected');
-            //             $('.c-sidebar-nav-link').removeClass('c-active');
-            //             $('.c-sidebar-nav-link[data-id="'+menuIdStorage+'"]').addClass('c-active');
-            //         }
-            //     }, 400);
-            // });
+            $(document).ready(function(){
+                $('#datepicker').datepicker({
+                    language: 'vi',
+                    format: 'dd/mm/yyyy',
+                    orientation: 'bottom',
+                    clearBtn: true,
+                    todayHighLight: true,
+                    templates: {
+                        leftArrow: '&lt;',
+                        rightArrow: '&gt;',
+                    }
+                }).on('changeDate', function (selected){
+                    $('#datepicker_2').datepicker('setStartDate', selected.date);
+                    $('.datepicker').hide();
+                }).on('clearDate', function () {
+                    $('#datepicker_2').datepicker('setStartDate', null);
+                    $('.datepicker').hide();
+                });
+                $('#datepicker_2').datepicker({
+                    language: 'vi',
+                    format: 'dd/mm/yyyy',
+                    orientation: 'bottom',
+                    clearBtn: true,
+                    todayHighLight: true,
+                    templates: {
+                        leftArrow: '&lt;',
+                        rightArrow: '&gt;',
+                    }
+                }).on('changeDate', function (selected) {
+                    $('#datepicker').datepicker('setEndDate', selected.date);
+                    $('.datepicker').hide();
+                }).on('clearDate', function () {
+                    $('#datepicker').datepicker('setEndDate', null);
+                    $('.datepicker').hide();
+                });
+            });
         },
         onClickLogout: function() {
             console.log(123);
