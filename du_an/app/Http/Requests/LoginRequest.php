@@ -31,7 +31,7 @@ class LoginRequest extends FormRequest
             'email.required' => 'Email không được để trống!',
             'email.email' => 'Email không đúng định dạng!',
             'password.required' => 'Mật khẩu không được để trống',
-            'password.min' => 'Mật khẩu phải có ít nhất 8 kí tự!',
+            'password.min' => 'Mật khẩu phải có ít nhất 10 kí tự!',
             'password.letters' => 'Mật khẩu phải có ít nhất 1 chữ cái!',
             'password.mixedCase' => 'Mật khẩu phải có ít nhất 1 chữ cái viết hoa!',
             'password.numbers' => 'Mật khẩu phải có ít nhất 1 chữ số!',

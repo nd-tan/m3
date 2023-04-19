@@ -5,18 +5,31 @@
         "build": "vite build"
     },
     "devDependencies": {
+        "@ckeditor/vite-plugin-ckeditor5": "^0.1.1",
         "axios": "^0.27",
         "laravel-vite-plugin": "^0.6.0",
         "lodash": "^4.17.19",
-        "postcss": "^8.1.14",
+        "postcss": "^8.4.22",
         "vite": "^3.0.0"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^37.0.1",
+        "@ckeditor/ckeditor5-enter": "^37.0.1",
+        "@ckeditor/ckeditor5-image": "^37.0.1",
+        "@ckeditor/ckeditor5-theme-lark": "^37.0.1",
+        "@coreui/chartjs": "^3.1.1",
+        "@coreui/coreui": "^4.2.6",
+        "@coreui/coreui-pro": "^4.5.0",
+        "@coreui/utils": "^2.0.1",
         "bootstrap-datepicker": "^1.9.0",
         "bootstrap-datetime-picker": "^2.4.4",
+        "ckeditor": "^4.12.1",
+        "ckeditor5": "^37.0.1",
         "datetimepicker": "^0.1.39",
         "jquery": "^3.6.4",
         "jquery-datepicker": "^1.12.3",
-        "jquery-datetimepicker": "^2.5.21"
+        "jquery-datetimepicker": "^2.5.21",
+        "sass": "^1.62.0",
+        "toastr": "^2.1.4"
     }
 }

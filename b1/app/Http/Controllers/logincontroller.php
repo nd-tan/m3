@@ -52,4 +52,9 @@ class logincontroller extends Controller
         $item->save();
         return redirect()->route('login.index');
     }
+    public function checkRequest(Request $request){
+        $des = $request->get('ck-editor');
+        return view('login', compact('des'));
+        // dd($request);
+    }
 }

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BrandCreateRequest;
 use App\Http\Requests\BrandUpdateRequest;
 use App\Models\Brand;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -32,10 +31,10 @@ class BrandController extends Controller
         $item->address=$request->address;
         try {
             $item->save();
-            toast('Thêm thương hiệu thành công!','success','top-right');
+            toast(config('define.store.success'),'success','top-right');
             return redirect()->route('brand.index');
         } catch (\Exception $th) {
-            toast('Thêm thương hiệu không thành công!','error','top-right');
+            toast(config('define.store.error'),'error','top-right');
             return redirect()->route('brand.index');
         }
     }
@@ -55,10 +54,10 @@ class BrandController extends Controller
         $item->address=$request->address;
         try {
             $item->save();
-            toast('Sửa thương hiệu thành công!','success','top-right');
+            toast(config('define.update.success'),'success','top-right');
             return redirect()->route('brand.index');
         } catch (\Exception $th) {
-            toast('Sửa thương hiệu không thành công!','error','top-right');
+            toast(config('define.update.error'),'error','top-right');
             return redirect()->route('brand.index');
         }
     }

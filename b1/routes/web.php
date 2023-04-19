@@ -32,6 +32,7 @@ Route::get('/logout',[logincontroller::class,'logout'])->name("logout");
 
 Route::get('/register',[logincontroller::class,'register'])->name("register");
 Route::get('/create',[logincontroller::class,'create'])->name("create");
+Route::post('/check-request',[logincontroller::class,'checkRequest'])->name("check_request");
 
 // Route::get("email",[checkmailController::class,'index'])->name("email");
 // Route::post("email/check",[checkmailController::class,'check'])->name("check.email");

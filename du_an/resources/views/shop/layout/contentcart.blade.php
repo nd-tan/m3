@@ -45,7 +45,7 @@
                                                     value="{{ $details['quantity'] }}" type="number"
                                                     data-id="{{ $id }}">
                                                 <div class="input-group-append">
-                                                    <button class="btn btn-outline-secondary btn-plus changeQuantity"
+                                                    <button class="btn btn-outline-secondary btn-plus changeQuantity" data-url="{{route('update.cart')}}"
                                                         data-id="{{ $id }}">
                                                         <i class="fa fa-plus"></i>
                                                     </button>
@@ -129,8 +129,9 @@
             e.preventDefault();
             var id = $(this).data('id');
             var quantity = $(this).parents("tr").find("input.quantity").val();
+            let href = $(this).data('url');
             $.ajax({
-                url: '{{ route('update.cart') }}',
+                url: href,
                 method: "patch",
                 data: {
                     _token: '{{ csrf_token() }}',
