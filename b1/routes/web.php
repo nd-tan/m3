@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\checkmailController;
 use App\Http\Controllers\coculatecontroller;
 use App\Http\Controllers\logincontroller;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\transaltecontroller;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,20 +23,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/index', function () {
     return view('welcome');
 })->name('index');
-// Route::post('index',[coculatecontroller::class,'index'])->name("index");
-// Route::post('coculate',[coculatecontroller::class,'coculate'])->name("coculate");
 
-// Route::get('translate/index',[transaltecontroller::class,'index'])->name("translate.index");
-// Route::post('translate/dich',[transaltecontroller::class,'dich'])->name("dich");
 
-Route::get('/',[logincontroller::class,'index'])->name("login.index");
-Route::post('/check',[logincontroller::class,'check'])->name("check");
-Route::get('/logout',[logincontroller::class,'logout'])->name("logout");
+Route::get('/',[UserController::class,'index'])->name("user.index");
+Route::get('/auth',[AuthController::class,'index'])->name("auth.index");
+Route::get('/product',[ProductController::class,'store'])->name("product.store");
+Route::get('/autocomplete', [UserController::class, 'autocomplete'])->name('user.autocomplete');
 
-Route::get('/register',[logincontroller::class,'register'])->name("register");
-Route::get('/create',[logincontroller::class,'create'])->name("create");
-Route::post('/check-request',[logincontroller::class,'checkRequest'])->name("check_request");
 
-// Route::get("email",[checkmailController::class,'index'])->name("email");
-// Route::post("email/check",[checkmailController::class,'check'])->name("check.email");
+
 

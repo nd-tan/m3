@@ -6,12 +6,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models;
 use App\Models\Login;
+use App\Models\User;
 
-class logincontroller extends Controller
+class AuthController extends Controller
 {
-    function index()
+    function index(Request $request)
     {
-        return view("login");
+        $users = User::getList($request);
+        // dd($users);
+        return view("login", compact('users'));
     }
     function check(Request $request)
     {

@@ -20,6 +20,7 @@ import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph';
 import CloudServicesPlugin from '@ckeditor/ckeditor5-cloud-services/src/cloudservices';
 import CloudServicesUploadAdapterPlugin from '@ckeditor/ckeditor5-easy-image/src/cloudservicesuploadadapter';
 import Base64UploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/base64uploadadapter';
+
 ClassicEditorBase.defaultConfig = {
     toolbar: {
         items: [
@@ -53,6 +54,7 @@ ClassicEditorBase.defaultConfig = {
             'imageTextAlternative',
         ]
     },
+    language: 'vi'
 }
 
 const imageResizeOptions = [

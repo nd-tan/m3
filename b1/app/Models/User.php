@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -41,4 +42,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    protected $table ='users';
+
+    public static function getList($request){
+        $orderBy = is_null($request->get('order_by')) ? 'id' : $request->get('order_by');
+        $orderArr = explode(',', $orderBy);
+        $sortBy = in_array($request->get('sort_by'), ['asc', 'desc']) ? $request->get('sort_by') : 'desc';
+
+        $user = DB::table('users');
+
+        foreach ($orderArr as $order) {
+            $user = $user->orderBy($order, $sortBy);
+        }
+
+        return $user->paginate(2);
+    }
 }

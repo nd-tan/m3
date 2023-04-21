@@ -1,0 +1,8 @@
+.asc:after {
+    content: " ↓";
+    font-size: 14px;
+}
+.desc::after {
+    content: " ↑";
+    font-size: 14px;
+}

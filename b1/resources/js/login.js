@@ -9,6 +9,9 @@
         this.$element.on('click', '#input', function () {
             appMenu.onClickLogout();
         });
+        this.$element.on('click', 'button#check', function (event) {
+            appMenu.check();
+        });
     };
 
     AppMenu.prototype = {
@@ -25,6 +28,7 @@
         },
         init: function() {
             $(document).ready(function(){
+                // $('.ck-editor').ckeditor({language: 'de'});
                 $('#datepicker').datepicker({
                     language: 'vi',
                     format: 'dd/mm/yyyy',
@@ -63,6 +67,11 @@
         },
         onClickLogout: function() {
             console.log(123);
+        },
+
+        check: function(){
+            var descript = $('.ck-content').html();
+            console.log(descript);
         }
     };
 

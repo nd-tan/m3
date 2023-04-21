@@ -1,3 +1,4 @@
+/* @import '~bootstrap/scss/bootstrap.scss'; */
 .dropdown-menu {
 display: inline-block;
 position: relative;
@@ -13,4 +14,10 @@ border: 1px solid;
     font-size: 0.875rem;
     font-weight: 400;
     line-height: 1.6;
+}
+#tooltip {
+	position:absolute;
+	background:#DB2A64;
+	color:#ffffff;
+	padding:8px;
 }

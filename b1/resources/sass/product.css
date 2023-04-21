@@ -1,0 +1,5 @@
+.tagify + input{
+    position: absolute !important;
+    left: -9999em !important;
+    transform: scale(0) !important;
+}
