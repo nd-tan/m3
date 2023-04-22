@@ -18,6 +18,7 @@ export default defineConfig({
             'resources/sass/toastr.css',
             'resources/sass/user.css',
             'resources/sass/product.css',
+            'resources/sass/tagify.css',
         ]),
         ckeditor5( { theme: require.resolve( '@ckeditor/ckeditor5-theme-lark' ) } )
     ],

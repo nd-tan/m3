@@ -98,10 +98,9 @@
                 fetch(el.appUrl + href + '?type=&&term=' + value, {signal: controller.signal, method: "GET"})
                     .then(RES => RES.json())
                     .then((res) => {
-                        tagify.loading(true);
                         if (res) {
-                            tagify.settings.whitelist = res.data;
-                            tagify.dropdown.show.call(tagify, value);
+                            tagify.settings.whitelist = res;
+                            tagify.loading(true).dropdown.show.call(tagify, value);
                         }
                     })
                     .catch((error) => {

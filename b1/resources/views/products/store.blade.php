@@ -9,6 +9,7 @@
     @vite('resources/sass/user.css')
     @vite('resources/sass/toastr.css')
     @vite('resources/sass/product.css')
+    @vite('resources/sass/tagify.css')
 </head>
 
 <body>
