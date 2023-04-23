@@ -86,28 +86,28 @@
             tagify.on('input', onInput);
             function onInput(e) {
                 var value = e.detail.value;
+				if(value){
+					tagify.settings.whitelist.length = 0;
+					controller && controller.abort();
+					controller = new AbortController();
 
-                // reset white list
-                tagify.settings.whitelist.length = 0;
-                controller && controller.abort();
-                controller = new AbortController();
-
-                // show loading animation and hide the suggestions dropdown
-                tagify.loading(true);
-                var href = '/autocomplete';
-                fetch(el.appUrl + href + '?type=&&term=' + value, {signal: controller.signal, method: "GET"})
-                    .then(RES => RES.json())
-                    .then((res) => {
-                        if (res) {
-                            tagify.settings.whitelist = res;
-                            tagify.loading(true).dropdown.show.call(tagify, value);
-                        }
-                    })
-                    .catch((error) => {
-                        tagify.settings.whitelist.length = 0;
-                        tagify.loading(false);
-                        tagify.dropdown.hide();
-                    })
+					// show loading animation and hide the suggestions dropdown
+					tagify.loading(true);
+					var href = '/autocomplete';
+					fetch(el.appUrl + href + '?type=&&term=' + value, {signal: controller.signal, method: "GET"})
+						.then(RES => RES.json())
+						.then((res) => {
+							if (res) {
+								tagify.settings.whitelist = res;
+								tagify.loading(false).dropdown.show.call(tagify, value);
+							}
+						})
+						.catch((error) => {
+							tagify.settings.whitelist.length = 0;
+							tagify.loading(false);
+							tagify.dropdown.hide();
+						})
+				}
             }
         }
     }
