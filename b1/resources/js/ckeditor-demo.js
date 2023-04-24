@@ -1,5 +1,4 @@
-// import '~~ckeditor/build/ckeditor5-dll.js';
-// const CKEditor5 = window['CKEditor5'];
-// console.log(CKEditor5);
+import '~ckeditor/ckeditor5-build-classic/build/translations/vi.js';
+
 
 

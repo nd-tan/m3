@@ -27,7 +27,6 @@ export default defineConfig({
             '~bootstrap-datepicker': path.resolve(__dirname, 'node_modules/bootstrap-datepicker'),
             '~jquery-datetimepicker': path.resolve(__dirname, 'node_modules/jquery-datetimepicker'),
             '~ckeditor': path.resolve(__dirname, 'node_modules/@ckeditor'),
-            '~~ckeditor': path.resolve(__dirname, 'node_modules/ckeditor5'),
             '~toastr': path.resolve(__dirname, 'node_modules/toastr'),
             '~coreui': path.resolve(__dirname, 'node_modules/@coreui'),
             '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
